@@ -36,7 +36,7 @@ export default function Hero() {
   if (!banner) return null;
 
   return (
-    <section className="relative w-full h-[600px] md:h-[540px] overflow-hidden">
+    <section className="relative w-full h-[560px] md:h-[540px] overflow-hidden">
 
       {/* Background */}
       <img
@@ -71,13 +71,13 @@ export default function Hero() {
 
       {/* Isi */}
       <div className="
-        absolute inset-0
-        max-w-[1200px]
-        mx-auto
-        flex items-start md:items-center
-        px-5 md:px-10 lg:px-[70px]
-        pt-[55px] md:pt-[90px]
-      ">
+  absolute inset-0
+  max-w-[1200px]
+  mx-auto
+  flex items-start md:items-center
+  px-5 md:px-10 lg:px-[70px]
+  pt-[105px] md:pt-[90px]
+">
         <div className="w-full md:w-[60%] lg:w-[48%]">
 
           {/* Badge */}
