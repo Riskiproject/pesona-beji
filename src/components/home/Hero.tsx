@@ -42,12 +42,15 @@ export default function Hero() {
         w-full
         overflow-hidden
 
+        /* ========================= */
         /* 📱 MOBILE */
-        min-h-[700px]
+        /* ========================= */
+        h-[720px]
 
+        /* ========================= */
         /* 🖥️ DESKTOP */
+        /* ========================= */
         md:h-[540px]
-        md:min-h-0
       "
     >
       {/* ========================= */}
@@ -63,6 +66,12 @@ export default function Hero() {
           w-full
           h-full
           object-cover
+
+          /* 📱 MOBILE */
+          object-center
+
+          /* 🖥️ DESKTOP */
+          md:object-center
         "
       />
 
@@ -99,35 +108,41 @@ export default function Hero() {
 
       <div
         className="
-          relative
+          absolute
+          inset-0
           z-10
           mx-auto
+          flex
           w-full
           max-w-[1200px]
 
+          /* ========================= */
           /* 📱 MOBILE */
-          flex
+          /* ========================= */
           items-start
-          px-[38px]
-          pt-[75px]
-          pb-[100px]
+          px-[28px]
+          pt-[65px]
 
+          /* ========================= */
           /* 🖥️ DESKTOP */
-          md:absolute
-          md:inset-0
-          md:flex
+          /* ========================= */
           md:items-center
           md:px-[70px]
           md:pt-[90px]
-          md:pb-0
         "
       >
         <div
           className="
             w-full
-            max-w-[560px]
 
+            /* ========================= */
+            /* 📱 MOBILE */
+            /* ========================= */
+            max-w-[500px]
+
+            /* ========================= */
             /* 🖥️ DESKTOP */
+            /* ========================= */
             md:w-[48%]
             md:max-w-none
           "
@@ -143,17 +158,18 @@ export default function Hero() {
               text-white
               rounded-full
               font-semibold
-              mb-[18px]
 
               /* 📱 MOBILE */
               px-[18px]
               py-[9px]
               text-[16px]
+              mb-[16px]
 
               /* 🖥️ DESKTOP */
               md:px-[22px]
               md:py-[10px]
               md:text-[16px]
+              md:mb-[18px]
             "
           >
             Selamat Datang di
@@ -171,14 +187,12 @@ export default function Hero() {
               break-words
 
               /* 📱 MOBILE */
-              text-[46px]
-              leading-[1]
-
-              /* 📱 HP BESAR */
-              sm:text-[52px]
+              text-[44px]
+              leading-[1.05]
 
               /* 🖥️ DESKTOP */
               md:text-[78px]
+              md:leading-[1]
             "
           >
             {banner.title}
@@ -196,11 +210,8 @@ export default function Hero() {
 
               /* 📱 MOBILE */
               mt-[18px]
-              text-[27px]
+              text-[25px]
               leading-[1.25]
-
-              /* 📱 HP BESAR */
-              sm:text-[30px]
 
               /* 🖥️ DESKTOP */
               md:mt-[22px]
@@ -221,12 +232,9 @@ export default function Hero() {
 
               /* 📱 MOBILE */
               mt-[16px]
-              max-w-full
+              max-w-[480px]
               text-[16px]
-              leading-[1.65]
-
-              /* 📱 HP BESAR */
-              sm:text-[17px]
+              leading-[1.6]
 
               /* 🖥️ DESKTOP */
               md:mt-[22px]
@@ -245,11 +253,12 @@ export default function Hero() {
           <div
             className="
               flex
-              flex-wrap
+              items-center
 
               /* 📱 MOBILE */
-              gap-[12px]
-              mt-[18px]
+              gap-[10px]
+              mt-[20px]
+              flex-nowrap
 
               /* 🖥️ DESKTOP */
               md:gap-[18px]
@@ -258,7 +267,11 @@ export default function Hero() {
             "
           >
             {/* BUTTON 1 */}
-            <a href={banner.button1_link}>
+
+            <a
+              href={banner.button1_link}
+              className="shrink-0"
+            >
               <button
                 className="
                   bg-[#1B5E20]
@@ -267,9 +280,10 @@ export default function Hero() {
                   rounded-[12px]
                   font-bold
                   cursor-pointer
+                  whitespace-nowrap
 
                   /* 📱 MOBILE */
-                  px-[22px]
+                  px-[18px]
                   py-[13px]
                   text-[16px]
 
@@ -283,7 +297,11 @@ export default function Hero() {
             </a>
 
             {/* BUTTON 2 */}
-            <a href={banner.button2_link}>
+
+            <a
+              href={banner.button2_link}
+              className="shrink-0"
+            >
               <button
                 className="
                   bg-white
@@ -293,9 +311,10 @@ export default function Hero() {
                   rounded-[12px]
                   font-bold
                   cursor-pointer
+                  whitespace-nowrap
 
                   /* 📱 MOBILE */
-                  px-[22px]
+                  px-[18px]
                   py-[13px]
                   text-[16px]
 
@@ -323,6 +342,7 @@ export default function Hero() {
           flex
           justify-center
           gap-[10px]
+          z-20
 
           /* 📱 MOBILE */
           bottom-[22px]
