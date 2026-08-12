@@ -40,12 +40,20 @@ export default function Hero() {
       className="
         relative
         w-full
-        h-[560px]
-        md:h-[540px]
         overflow-hidden
+
+        /* 📱 MOBILE */
+        min-h-[700px]
+
+        /* 🖥️ DESKTOP */
+        md:h-[540px]
+        md:min-h-0
       "
     >
-      {/* Background */}
+      {/* ========================= */}
+      {/* BACKGROUND */}
+      {/* ========================= */}
+
       <img
         src={banner.image_url}
         alt="Hero"
@@ -58,7 +66,10 @@ export default function Hero() {
         "
       />
 
-      {/* Gradient */}
+      {/* ========================= */}
+      {/* GRADIENT */}
+      {/* ========================= */}
+
       <div
         className="absolute inset-0"
         style={{
@@ -82,42 +93,64 @@ export default function Hero() {
         }}
       />
 
-      {/* Isi */}
+      {/* ========================= */}
+      {/* ISI HERO */}
+      {/* ========================= */}
+
       <div
         className="
-          absolute
-          inset-0
+          relative
+          z-10
           mx-auto
-          flex
-          items-center
+          w-full
           max-w-[1200px]
-          px-[38px]
-          pt-[70px]
 
+          /* 📱 MOBILE */
+          flex
+          items-start
+          px-[38px]
+          pt-[75px]
+          pb-[100px]
+
+          /* 🖥️ DESKTOP */
+          md:absolute
+          md:inset-0
+          md:flex
+          md:items-center
           md:px-[70px]
           md:pt-[90px]
+          md:pb-0
         "
       >
         <div
           className="
             w-full
+            max-w-[560px]
 
+            /* 🖥️ DESKTOP */
             md:w-[48%]
+            md:max-w-none
           "
         >
-          {/* Badge */}
+          {/* ========================= */}
+          {/* BADGE */}
+          {/* ========================= */}
+
           <div
             className="
               inline-block
               bg-[#8BC34A]
               text-white
-              px-[18px]
-              py-[9px]
               rounded-full
               font-semibold
-              text-[16px]
               mb-[18px]
 
+              /* 📱 MOBILE */
+              px-[18px]
+              py-[9px]
+              text-[16px]
+
+              /* 🖥️ DESKTOP */
               md:px-[22px]
               md:py-[10px]
               md:text-[16px]
@@ -126,36 +159,50 @@ export default function Hero() {
             Selamat Datang di
           </div>
 
-          {/* Title */}
+          {/* ========================= */}
+          {/* TITLE */}
+          {/* ========================= */}
+
           <h1
             className="
               m-0
-              text-[46px]
-              leading-[1]
               font-extrabold
               text-[#214E28]
               break-words
 
+              /* 📱 MOBILE */
+              text-[46px]
+              leading-[1]
+
+              /* 📱 HP BESAR */
               sm:text-[52px]
 
+              /* 🖥️ DESKTOP */
               md:text-[78px]
             "
           >
             {banner.title}
           </h1>
 
-          {/* Subtitle */}
+          {/* ========================= */}
+          {/* SUBTITLE */}
+          {/* ========================= */}
+
           <h2
             className="
-              mt-[18px]
-              text-[27px]
-              leading-[1.25]
               font-bold
               text-[#3D3D3D]
               whitespace-pre-line
 
+              /* 📱 MOBILE */
+              mt-[18px]
+              text-[27px]
+              leading-[1.25]
+
+              /* 📱 HP BESAR */
               sm:text-[30px]
 
+              /* 🖥️ DESKTOP */
               md:mt-[22px]
               md:text-[38px]
               md:leading-[1.35]
@@ -164,17 +211,24 @@ export default function Hero() {
             {banner.subtitle}
           </h2>
 
-          {/* Description */}
+          {/* ========================= */}
+          {/* DESCRIPTION */}
+          {/* ========================= */}
+
           <p
             className="
+              text-[#555]
+
+              /* 📱 MOBILE */
               mt-[16px]
               max-w-full
               text-[16px]
               leading-[1.65]
-              text-[#555]
 
+              /* 📱 HP BESAR */
               sm:text-[17px]
 
+              /* 🖥️ DESKTOP */
               md:mt-[22px]
               md:max-w-[520px]
               md:text-[18px]
@@ -184,19 +238,26 @@ export default function Hero() {
             {banner.description}
           </p>
 
-          {/* Buttons */}
+          {/* ========================= */}
+          {/* BUTTONS */}
+          {/* ========================= */}
+
           <div
             className="
               flex
               flex-wrap
+
+              /* 📱 MOBILE */
               gap-[12px]
               mt-[18px]
 
+              /* 🖥️ DESKTOP */
               md:gap-[18px]
               md:mt-[20px]
               md:translate-y-[-12px]
             "
           >
+            {/* BUTTON 1 */}
             <a href={banner.button1_link}>
               <button
                 className="
@@ -204,12 +265,15 @@ export default function Hero() {
                   text-white
                   border-none
                   rounded-[12px]
-                  px-[22px]
-                  py-[13px]
-                  text-[16px]
                   font-bold
                   cursor-pointer
 
+                  /* 📱 MOBILE */
+                  px-[22px]
+                  py-[13px]
+                  text-[16px]
+
+                  /* 🖥️ DESKTOP */
                   md:px-[30px]
                   md:py-[16px]
                 "
@@ -218,6 +282,7 @@ export default function Hero() {
               </button>
             </a>
 
+            {/* BUTTON 2 */}
             <a href={banner.button2_link}>
               <button
                 className="
@@ -226,12 +291,15 @@ export default function Hero() {
                   border-2
                   border-[#BCAAA4]
                   rounded-[12px]
-                  px-[22px]
-                  py-[13px]
-                  text-[16px]
                   font-bold
                   cursor-pointer
 
+                  /* 📱 MOBILE */
+                  px-[22px]
+                  py-[13px]
+                  text-[16px]
+
+                  /* 🖥️ DESKTOP */
                   md:px-[30px]
                   md:py-[16px]
                 "
@@ -243,17 +311,23 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Dot Slider */}
+      {/* ========================= */}
+      {/* DOT SLIDER */}
+      {/* ========================= */}
+
       <div
         className="
           absolute
-          bottom-[22px]
           left-0
           w-full
           flex
           justify-center
           gap-[10px]
 
+          /* 📱 MOBILE */
+          bottom-[22px]
+
+          /* 🖥️ DESKTOP */
           md:bottom-[35px]
         "
       >
