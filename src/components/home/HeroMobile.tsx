@@ -12,15 +12,7 @@ export default function HeroMobile({
   setCurrent,
 }: HeroMobileProps) {
   return (
-    <section
-  className="relative w-full overflow-hidden"
-  style={{
-    height: "250px",
-    minHeight: "250px",
-    maxHeight: "250px",
-    background: "red",
-  }}
->
+   <section className="relative h-[200px] w-full overflow-hidden">
 
       {/* BACKGROUND */}
       <img
