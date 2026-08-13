@@ -42,16 +42,19 @@ export default function Hero() {
         w-full
         overflow-hidden
 
+        /* ================================================= */
         /* 📱 MOBILE */
-h-[450px]
+        /* ================================================= */
+        h-[320px]
 
-/* 🖥️ DESKTOP */
-md:h-[540px]
+        /* ================================================= */
+        /* 🖥️ DESKTOP */
+        /* ================================================= */
+        md:h-[540px]
       "
     >
-
       {/* ================================================= */}
-      {/* BACKGROUND FOTO — 📱 MOBILE & 🖥️ DESKTOP */}
+      {/* BACKGROUND FOTO */}
       {/* ================================================= */}
 
       <img
@@ -68,7 +71,7 @@ md:h-[540px]
       />
 
       {/* ================================================= */}
-      {/* GRADIENT — TETAP */}
+      {/* GRADIENT */}
       {/* ================================================= */}
 
       <div
@@ -108,33 +111,43 @@ md:h-[540px]
           w-full
           max-w-[1200px]
 
+          /* ================================================= */
           /* 📱 MOBILE */
-items-start
-px-[24px]
-pt-[12px]
+          /* ================================================= */
 
-/* 🖥️ DESKTOP */
-md:items-center
-md:px-[70px]
-md:pt-[90px]
+          items-start
+          px-[20px]
+          pt-[12px]
+
+          /* ================================================= */
+          /* 🖥️ DESKTOP */
+          /* ================================================= */
+
+          md:items-center
+          md:px-[70px]
+          md:pt-[90px]
         "
       >
-
         <div
           className="
             w-full
 
+            /* ================================================= */
             /* 📱 MOBILE */
-max-w-[360px]
+            /* ================================================= */
 
-/* 🖥️ DESKTOP */
-md:w-[48%]
-md:max-w-none
+            max-w-[350px]
+
+            /* ================================================= */
+            /* 🖥️ DESKTOP */
+            /* ================================================= */
+
+            md:w-[48%]
+            md:max-w-none
           "
         >
-
           {/* ================================================= */}
-          {/* BADGE — 📱 MOBILE */}
+          {/* BADGE */}
           {/* ================================================= */}
 
           <div
@@ -145,15 +158,19 @@ md:max-w-none
               rounded-full
               font-semibold
 
-             px-[16px]
-py-[6px]
-text-[13px]
-mb-[8px]
+              /* 📱 MOBILE */
+
+              px-[14px]
+              py-[5px]
+              text-[11px]
+              mb-[5px]
 
               /* 🖥️ DESKTOP */
+
               md:px-[22px]
               md:py-[10px]
               md:text-[16px]
+              md:mb-[18px]
             "
           >
             Selamat Datang di
@@ -171,8 +188,10 @@ mb-[8px]
               break-words
 
               /* 📱 MOBILE */
-text-[34px]
-leading-[0.95]
+
+              text-[30px]
+              leading-[1]
+
               /* 🖥️ DESKTOP */
 
               md:text-[78px]
@@ -193,11 +212,13 @@ leading-[0.95]
               whitespace-pre-line
 
               /* 📱 MOBILE */
-             mt-[6px]
-text-[16px]
-leading-[1.15]
+
+              mt-[5px]
+              text-[15px]
+              leading-[1.15]
 
               /* 🖥️ DESKTOP */
+
               md:mt-[22px]
               md:text-[38px]
               md:leading-[1.35]
@@ -215,17 +236,20 @@ leading-[1.15]
               text-[#555]
 
               /* 📱 MOBILE */
-              mt-[6px]
-max-w-[340px]
-text-[11px]
-leading-[1.25]
-line-clamp-2
+
+              mt-[5px]
+              max-w-[330px]
+              text-[11px]
+              leading-[1.25]
+              line-clamp-2
 
               /* 🖥️ DESKTOP */
+
               md:mt-[22px]
               md:max-w-[520px]
               md:text-[18px]
               md:leading-[1.8]
+              md:line-clamp-none
             "
           >
             {banner.description}
@@ -238,20 +262,21 @@ line-clamp-2
           <div
             className="
               flex
-flex-nowrap
-items-center
+              flex-nowrap
+              items-center
 
-/* 📱 MOBILE */
-gap-[6px]
-mt-[8px]
+              /* 📱 MOBILE */
 
-/* 🖥️ DESKTOP */
-md:gap-[18px]
-md:mt-[20px]
-md:translate-y-[-12px]
+              gap-[7px]
+              mt-[8px]
+
+              /* 🖥️ DESKTOP */
+
+              md:gap-[18px]
+              md:mt-[20px]
+              md:translate-y-[-12px]
             "
           >
-
             {/* BUTTON 1 */}
 
             <a
@@ -263,19 +288,23 @@ md:translate-y-[-12px]
                   bg-[#1B5E20]
                   text-white
                   border-none
-                  rounded-[12px]
+                  rounded-[9px]
                   font-bold
                   cursor-pointer
                   whitespace-nowrap
 
                   /* 📱 MOBILE */
+
                   px-[14px]
-py-[8px]
-text-[12px]
+                  py-[8px]
+                  text-[12px]
 
                   /* 🖥️ DESKTOP */
+
                   md:px-[30px]
                   md:py-[16px]
+                  md:text-[16px]
+                  md:rounded-[12px]
                 "
               >
                 {banner.button1_text}
@@ -294,25 +323,28 @@ text-[12px]
                   text-[#5D4037]
                   border-2
                   border-[#BCAAA4]
-                  rounded-[12px]
+                  rounded-[9px]
                   font-bold
                   cursor-pointer
                   whitespace-nowrap
 
                   /* 📱 MOBILE */
-                  px-[16px]
-                  py-[11px]
-                  text-[14px]
+
+                  px-[14px]
+                  py-[8px]
+                  text-[12px]
 
                   /* 🖥️ DESKTOP */
+
                   md:px-[30px]
                   md:py-[16px]
+                  md:text-[16px]
+                  md:rounded-[12px]
                 "
               >
                 {banner.button2_text}
               </button>
             </a>
-
           </div>
         </div>
       </div>
@@ -324,16 +356,18 @@ text-[12px]
       <div
         className="
           absolute
-          bottom-[12px]
+          bottom-[7px]
           left-0
           z-20
           flex
           w-full
           justify-center
-          gap-[10px]
+          gap-[7px]
 
           /* 🖥️ DESKTOP */
+
           md:bottom-[35px]
+          md:gap-[10px]
         "
       >
         {banners.map((_, index) => (
@@ -341,10 +375,18 @@ text-[12px]
             key={index}
             onClick={() => setCurrent(index)}
             className="
-              h-[12px]
-              w-[12px]
               cursor-pointer
               rounded-full
+
+              /* 📱 MOBILE */
+
+              h-[8px]
+              w-[8px]
+
+              /* 🖥️ DESKTOP */
+
+              md:h-[12px]
+              md:w-[12px]
             "
             style={{
               background:
@@ -355,7 +397,6 @@ text-[12px]
           />
         ))}
       </div>
-
     </section>
   );
-} 
+}
