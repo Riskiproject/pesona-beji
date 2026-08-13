@@ -43,7 +43,7 @@ export default function Hero() {
         overflow-hidden
 
         /* 📱 MOBILE */
-h-[520px]
+h-[420px]
 
 /* 🖥️ DESKTOP */
 md:h-[540px]
@@ -109,9 +109,9 @@ md:h-[540px]
           max-w-[1200px]
 
           /* 📱 MOBILE */
-items-center
+items-start
 px-[24px]
-pt-[35px]
+pt-[25px]
 
 /* 🖥️ DESKTOP */
 md:items-center
@@ -323,7 +323,7 @@ md:translate-y-[-12px]
       <div
         className="
           absolute
-          bottom-[22px]
+          bottom-[12px]
           left-0
           z-20
           flex
