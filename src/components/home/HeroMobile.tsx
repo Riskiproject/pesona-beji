@@ -12,7 +12,7 @@ export default function HeroMobile({
   setCurrent,
 }: HeroMobileProps) {
   return (
-   <section className="relative h-[px] w-full overflow-hidden">
+   <section className="relative h-[10px] w-full overflow-hidden">
 
       {/* BACKGROUND */}
       <img
