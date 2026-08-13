@@ -43,7 +43,7 @@ export default function Hero() {
         overflow-hidden
 
         /* 📱 MOBILE */
-h-[300px]
+h-[200px]
 
 /* 🖥️ DESKTOP */
 md:h-[540px]
