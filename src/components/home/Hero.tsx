@@ -37,29 +37,43 @@ export default function Hero() {
 
   return (
     <section
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "540px",
-        overflow: "hidden",
-      }}
+      className="
+        relative
+        w-full
+        overflow-hidden
+
+        /* 📱 MOBILE */
+        h-[680px]
+
+        /* 🖥️ DESKTOP */
+        md:h-[540px]
+      "
     >
-      {/* Background */}
+
+      {/* ================================================= */}
+      {/* BACKGROUND FOTO — 📱 MOBILE & 🖥️ DESKTOP */}
+      {/* ================================================= */}
+
       <img
         src={banner.image_url}
         alt="Hero"
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-        }}
+        className="
+          absolute
+          inset-0
+          w-full
+          h-full
+          object-cover
+          object-center
+        "
       />
 
-      {/* Gradient kiri */}
+      {/* ================================================= */}
+      {/* GRADIENT — TETAP */}
+      {/* ================================================= */}
+
       <div
+        className="absolute inset-0"
         style={{
-          position: "absolute",
-          inset: 0,
           background: `
             radial-gradient(
               circle at 15% 35%,
@@ -80,138 +94,258 @@ export default function Hero() {
         }}
       />
 
-      {/* Isi */}
+      {/* ================================================= */}
+      {/* ISI HERO */}
+      {/* ================================================= */}
+
       <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          maxWidth: "1200px",
-          margin: "auto",
-          display: "flex",
-          alignItems: "center",
-          padding: "0 70px",
-          paddingTop: "90px",
-        }}
+        className="
+          absolute
+          inset-0
+          z-10
+          mx-auto
+          flex
+          w-full
+          max-w-[1200px]
+
+          /* 📱 MOBILE */
+          items-start
+          px-[38px]
+          pt-[55px]
+
+          /* 🖥️ DESKTOP */
+          md:items-center
+          md:px-[70px]
+          md:pt-[90px]
+        "
       >
+
         <div
-          style={{
-            width: "48%",
-          }}
+          className="
+            w-full
+
+            /* 📱 MOBILE */
+            max-w-[520px]
+
+            /* 🖥️ DESKTOP */
+            md:w-[48%]
+            md:max-w-none
+          "
         >
+
+          {/* ================================================= */}
+          {/* BADGE — 📱 MOBILE */}
+          {/* ================================================= */}
+
           <div
-            style={{
-              display: "inline-block",
-              background: "#8BC34A",
-              color: "#fff",
-              padding: "10px 22px",
-              borderRadius: "50px",
-              fontWeight: 600,
-              marginBottom: "18px",
-            }}
+            className="
+              inline-block
+              bg-[#8BC34A]
+              text-white
+              rounded-full
+              font-semibold
+
+              px-[20px]
+              py-[10px]
+              text-[16px]
+              mb-[18px]
+
+              /* 🖥️ DESKTOP */
+              md:px-[22px]
+              md:py-[10px]
+              md:text-[16px]
+            "
           >
             Selamat Datang di
           </div>
 
+          {/* ================================================= */}
+          {/* TITLE */}
+          {/* ================================================= */}
+
           <h1
-            style={{
-              margin: 0,
-              fontSize: "78px",
-              color: "#214E28",
-              fontWeight: 800,
-              lineHeight: 1,
-            }}
+            className="
+              m-0
+              font-extrabold
+              text-[#214E28]
+              break-words
+
+              /* 📱 MOBILE */
+              text-[48px]
+              leading-[1.05]
+
+              /* 🖥️ DESKTOP */
+              md:text-[78px]
+              md:leading-[1]
+            "
           >
             {banner.title}
           </h1>
 
+          {/* ================================================= */}
+          {/* SUBTITLE */}
+          {/* ================================================= */}
+
           <h2
-            style={{
-              marginTop: "22px",
-              fontSize: "38px",
-              lineHeight: 1.35,
-              fontWeight: 700,
-              color: "#3D3D3D",
-              whiteSpace: "pre-line",
-            }}
+            className="
+              font-bold
+              text-[#3D3D3D]
+              whitespace-pre-line
+
+              /* 📱 MOBILE */
+              mt-[18px]
+              text-[26px]
+              leading-[1.3]
+
+              /* 🖥️ DESKTOP */
+              md:mt-[22px]
+              md:text-[38px]
+              md:leading-[1.35]
+            "
           >
             {banner.subtitle}
           </h2>
 
+          {/* ================================================= */}
+          {/* DESCRIPTION */}
+          {/* ================================================= */}
+
           <p
-            style={{
-              marginTop: "22px",
-              color: "#555",
-              lineHeight: 1.8,
-              fontSize: "18px",
-              maxWidth: "520px",
-            }}
+            className="
+              text-[#555]
+
+              /* 📱 MOBILE */
+              mt-[18px]
+              max-w-[520px]
+              text-[17px]
+              leading-[1.65]
+
+              /* 🖥️ DESKTOP */
+              md:mt-[22px]
+              md:max-w-[520px]
+              md:text-[18px]
+              md:leading-[1.8]
+            "
           >
             {banner.description}
           </p>
 
+          {/* ================================================= */}
+          {/* BUTTONS */}
+          {/* ================================================= */}
+
           <div
-            style={{
-              display: "flex",
-              gap: "18px",
-              marginTop: "20px",
-              transform: "translateY(-12px)",
-            }}
+            className="
+              flex
+              flex-wrap
+              items-center
+
+              /* 📱 MOBILE */
+              gap-[12px]
+              mt-[22px]
+
+              /* 🖥️ DESKTOP */
+              md:gap-[18px]
+              md:mt-[20px]
+              md:translate-y-[-12px]
+            "
           >
-            <a href={banner.button1_link}>
+
+            {/* BUTTON 1 */}
+
+            <a
+              href={banner.button1_link}
+              className="shrink-0"
+            >
               <button
-                style={{
-                  background: "#1B5E20",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "12px",
-                  padding: "16px 30px",
-                  fontWeight: 700,
-                  cursor: "pointer",
-                }}
+                className="
+                  bg-[#1B5E20]
+                  text-white
+                  border-none
+                  rounded-[12px]
+                  font-bold
+                  cursor-pointer
+                  whitespace-nowrap
+
+                  /* 📱 MOBILE */
+                  px-[22px]
+                  py-[14px]
+                  text-[16px]
+
+                  /* 🖥️ DESKTOP */
+                  md:px-[30px]
+                  md:py-[16px]
+                "
               >
                 {banner.button1_text}
               </button>
             </a>
 
-            <a href={banner.button2_link}>
+            {/* BUTTON 2 */}
+
+            <a
+              href={banner.button2_link}
+              className="shrink-0"
+            >
               <button
-                style={{
-                  background: "#fff",
-                  color: "#5D4037",
-                  border: "2px solid #BCAAA4",
-                  borderRadius: "12px",
-                  padding: "16px 30px",
-                  fontWeight: 700,
-                  cursor: "pointer",
-                }}
+                className="
+                  bg-white
+                  text-[#5D4037]
+                  border-2
+                  border-[#BCAAA4]
+                  rounded-[12px]
+                  font-bold
+                  cursor-pointer
+                  whitespace-nowrap
+
+                  /* 📱 MOBILE */
+                  px-[22px]
+                  py-[14px]
+                  text-[16px]
+
+                  /* 🖥️ DESKTOP */
+                  md:px-[30px]
+                  md:py-[16px]
+                "
               >
                 {banner.button2_text}
               </button>
             </a>
+
           </div>
         </div>
       </div>
 
-      {/* Dot Slider */}
+      {/* ================================================= */}
+      {/* DOT SLIDER */}
+      {/* ================================================= */}
+
       <div
-        style={{
-          position: "absolute",
-          bottom: "35px",
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          gap: "10px",
-        }}
+        className="
+          absolute
+          bottom-[22px]
+          left-0
+          z-20
+          flex
+          w-full
+          justify-center
+          gap-[10px]
+
+          /* 🖥️ DESKTOP */
+          md:bottom-[35px]
+        "
       >
         {banners.map((_, index) => (
           <div
             key={index}
             onClick={() => setCurrent(index)}
+            className="
+              h-[12px]
+              w-[12px]
+              cursor-pointer
+              rounded-full
+            "
             style={{
-              width: "12px",
-              height: "12px",
-              borderRadius: "50%",
-              cursor: "pointer",
               background:
                 current === index
                   ? "#fff"
@@ -220,6 +354,7 @@ export default function Hero() {
           />
         ))}
       </div>
+
     </section>
   );
 }
