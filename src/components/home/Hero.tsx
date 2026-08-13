@@ -111,7 +111,7 @@ md:h-[540px]
           /* 📱 MOBILE */
 items-start
 px-[24px]
-pt-[25px]
+pt-[12px]
 
 /* 🖥️ DESKTOP */
 md:items-center
@@ -145,10 +145,10 @@ md:max-w-none
               rounded-full
               font-semibold
 
-              px-[20px]
-              py-[10px]
-              text-[16px]
-              mb-[18px]
+             px-[16px]
+py-[6px]
+text-[13px]
+mb-[8px]
 
               /* 🖥️ DESKTOP */
               md:px-[22px]
@@ -171,10 +171,10 @@ md:max-w-none
               break-words
 
               /* 📱 MOBILE */
-              text-[42px]
-leading-[1]
-
+text-[34px]
+leading-[0.95]
               /* 🖥️ DESKTOP */
+
               md:text-[78px]
               md:leading-[1]
             "
@@ -193,9 +193,9 @@ leading-[1]
               whitespace-pre-line
 
               /* 📱 MOBILE */
-             mt-[12px]
-text-[21px]
-leading-[1.25]
+             mt-[6px]
+text-[16px]
+leading-[1.15]
 
               /* 🖥️ DESKTOP */
               md:mt-[22px]
@@ -215,10 +215,11 @@ leading-[1.25]
               text-[#555]
 
               /* 📱 MOBILE */
-              mt-[12px]
+              mt-[6px]
 max-w-[340px]
-text-[14px]
-leading-[1.5]
+text-[11px]
+leading-[1.25]
+line-clamp-2
 
               /* 🖥️ DESKTOP */
               md:mt-[22px]
@@ -241,8 +242,8 @@ flex-nowrap
 items-center
 
 /* 📱 MOBILE */
-gap-[8px]
-mt-[15px]
+gap-[6px]
+mt-[8px]
 
 /* 🖥️ DESKTOP */
 md:gap-[18px]
@@ -268,9 +269,9 @@ md:translate-y-[-12px]
                   whitespace-nowrap
 
                   /* 📱 MOBILE */
-                  px-[16px]
-                  py-[11px]
-                  text-[14px]
+                  px-[14px]
+py-[8px]
+text-[12px]
 
                   /* 🖥️ DESKTOP */
                   md:px-[30px]
