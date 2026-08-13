@@ -43,10 +43,10 @@ export default function Hero() {
         overflow-hidden
 
         /* 📱 MOBILE */
-        h-[680px]
+h-[520px]
 
-        /* 🖥️ DESKTOP */
-        md:h-[540px]
+/* 🖥️ DESKTOP */
+md:h-[540px]
       "
     >
 
@@ -109,14 +109,14 @@ export default function Hero() {
           max-w-[1200px]
 
           /* 📱 MOBILE */
-          items-start
-          px-[38px]
-          pt-[55px]
+items-center
+px-[24px]
+pt-[35px]
 
-          /* 🖥️ DESKTOP */
-          md:items-center
-          md:px-[70px]
-          md:pt-[90px]
+/* 🖥️ DESKTOP */
+md:items-center
+md:px-[70px]
+md:pt-[90px]
         "
       >
 
@@ -125,11 +125,11 @@ export default function Hero() {
             w-full
 
             /* 📱 MOBILE */
-            max-w-[520px]
+max-w-[360px]
 
-            /* 🖥️ DESKTOP */
-            md:w-[48%]
-            md:max-w-none
+/* 🖥️ DESKTOP */
+md:w-[48%]
+md:max-w-none
           "
         >
 
@@ -171,8 +171,8 @@ export default function Hero() {
               break-words
 
               /* 📱 MOBILE */
-              text-[48px]
-              leading-[1.05]
+              text-[42px]
+leading-[1]
 
               /* 🖥️ DESKTOP */
               md:text-[78px]
@@ -193,9 +193,9 @@ export default function Hero() {
               whitespace-pre-line
 
               /* 📱 MOBILE */
-              mt-[18px]
-              text-[26px]
-              leading-[1.3]
+             mt-[12px]
+text-[21px]
+leading-[1.25]
 
               /* 🖥️ DESKTOP */
               md:mt-[22px]
@@ -215,10 +215,10 @@ export default function Hero() {
               text-[#555]
 
               /* 📱 MOBILE */
-              mt-[18px]
-              max-w-[520px]
-              text-[17px]
-              leading-[1.65]
+              mt-[12px]
+max-w-[340px]
+text-[14px]
+leading-[1.5]
 
               /* 🖥️ DESKTOP */
               md:mt-[22px]
@@ -237,17 +237,17 @@ export default function Hero() {
           <div
             className="
               flex
-              flex-wrap
-              items-center
+flex-nowrap
+items-center
 
-              /* 📱 MOBILE */
-              gap-[12px]
-              mt-[22px]
+/* 📱 MOBILE */
+gap-[8px]
+mt-[15px]
 
-              /* 🖥️ DESKTOP */
-              md:gap-[18px]
-              md:mt-[20px]
-              md:translate-y-[-12px]
+/* 🖥️ DESKTOP */
+md:gap-[18px]
+md:mt-[20px]
+md:translate-y-[-12px]
             "
           >
 
@@ -268,9 +268,9 @@ export default function Hero() {
                   whitespace-nowrap
 
                   /* 📱 MOBILE */
-                  px-[22px]
-                  py-[14px]
-                  text-[16px]
+                  px-[16px]
+                  py-[11px]
+                  text-[14px]
 
                   /* 🖥️ DESKTOP */
                   md:px-[30px]
@@ -299,9 +299,9 @@ export default function Hero() {
                   whitespace-nowrap
 
                   /* 📱 MOBILE */
-                  px-[22px]
-                  py-[14px]
-                  text-[16px]
+                  px-[16px]
+                  py-[11px]
+                  text-[14px]
 
                   /* 🖥️ DESKTOP */
                   md:px-[30px]
@@ -357,4 +357,4 @@ export default function Hero() {
 
     </section>
   );
-}
+} 
