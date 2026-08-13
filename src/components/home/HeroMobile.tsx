@@ -14,7 +14,12 @@ export default function HeroMobile({
   return (
     <section
   className="relative w-full overflow-hidden"
-  style={{ height: "250px", minHeight: "250px", maxHeight: "250px" }}
+  style={{
+    height: "250px",
+    minHeight: "250px",
+    maxHeight: "250px",
+    background: "red",
+  }}
 >
 
       {/* BACKGROUND */}
