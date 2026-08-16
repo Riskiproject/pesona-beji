@@ -94,7 +94,8 @@ const banner = banners[current];
 </section>
 
       {/* Potensi */}
-      <section className="mx-auto max-w-7xl px-5 py-16">
+<section className="bg-[#F7F4ED] py-16">
+  <div className="mx-auto max-w-7xl px-5">
         <div className="mb-10 text-center">
           <h2 className="text-3xl font-bold">
             Potensi Desa Beji
@@ -105,39 +106,41 @@ const banner = banners[current];
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {potensi.map((item) => (
-            <div
-  key={item.id}
-  className="flex h-full flex-col overflow-hidden rounded-2xl border bg-white shadow-sm transition hover:-translate-y-2 hover:shadow-lg"
->
-              <img
-  src={item.image_url}
-  alt={item.title}
-  className="h-56 w-full object-cover"
-/>
+        <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+  {potensi.map((item) => (
+    <div
+      key={item.id}
+      className="flex h-full flex-col overflow-hidden rounded-xl border bg-white shadow-sm transition hover:-translate-y-2 hover:shadow-lg sm:rounded-2xl"
+    >
+      <img
+        src={item.image_url}
+        alt={item.title}
+        className="h-28 w-full object-cover sm:h-40 lg:h-56"
+      />
 
-              <div className="flex flex-1 flex-col p-6">
-                <h3 className="text-xl font-semibold">
-                  {item.title}
-                </h3>
+      <div className="flex flex-1 flex-col p-3 sm:p-5 lg:p-6">
+        <h3 className="text-sm font-semibold sm:text-lg lg:text-xl">
+          {item.title}
+        </h3>
 
-                <p className="mt-3 text-gray-600 line-clamp-3">
-  {item.short_description}
-</p>
+        <p className="mt-2 text-xs text-gray-600 line-clamp-3 sm:mt-3 sm:text-sm lg:text-base">
+          {item.short_description}
+        </p>
 
-<Link
-  to={`/potensi/${item.slug}`}
-  className="mt-auto pt-4 font-semibold text-green-600 hover:underline"
->
-  Lihat Detail →
-</Link>
-              </div>
+        <Link
+          to={`/potensi/${item.slug}`}
+          className="mt-auto pt-3 text-xs font-semibold text-green-600 hover:underline sm:pt-4 sm:text-sm lg:text-base"
+        >
+          Lihat Detail →
+        </Link>
+      </div>
+    </div>
+  ))}
+</div>
             </div>
-          ))}
-        </div>
-      </section>
-<Footer />
+    </section>
+
+    <Footer />
      
     </>
   );

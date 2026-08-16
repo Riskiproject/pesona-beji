@@ -48,236 +48,257 @@ export default function KontakPage() {
     <>
       <Navbar />
 
-      {/* Header */}
-      <section className="mx-auto max-w-7xl px-5 pt-28 pb-16">
+      <main className="bg-[#F8F3E7]">
 
-        <span className="rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-green-700">
-          📞 Hubungi Kami
-        </span>
+        {/* =========================
+            HEADER
+        ========================= */}
+        <section className="mx-auto max-w-7xl px-5 pt-24 pb-10 sm:pt-28 sm:pb-16">
 
-        <h1 className="mt-6 text-5xl font-bold text-gray-900">
-          Kontak Pesona Beji
-        </h1>
+          <span className="inline-block rounded-full bg-[#E5F1D8] px-4 py-2 text-sm font-semibold text-green-700">
+            📞 Hubungi Kami
+          </span>
 
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-gray-600">
-          Hubungi kami untuk memperoleh informasi mengenai Desa Beji,
-          potensi desa, UMKM, Kopi Beji, maupun kegiatan yang ada di Desa Beji.
-        </p>
+          <h1 className="mt-5 text-4xl font-bold leading-tight text-gray-900 sm:mt-6 sm:text-5xl">
+            Kontak Pesona Beji
+          </h1>
 
-      </section>
+          <p className="mt-4 max-w-3xl text-base leading-7 text-gray-600 sm:mt-5 sm:text-lg sm:leading-8">
+            Hubungi kami untuk memperoleh informasi mengenai Desa Beji,
+            potensi desa, UMKM, Kopi Beji, maupun kegiatan yang ada di Desa Beji.
+          </p>
 
-      {/* Loading */}
-      {loading ? (
-        <section className="mx-auto max-w-7xl px-5 pb-20">
-          <div className="rounded-2xl border p-10 text-center text-gray-500">
-            Memuat informasi kontak...
-          </div>
         </section>
-      ) : !kontak ? (
-        <section className="mx-auto max-w-7xl px-5 pb-20">
-          <div className="rounded-2xl border p-10 text-center text-gray-500">
-            Informasi kontak belum tersedia.
-          </div>
-        </section>
-      ) : (
 
-        /* Informasi Kontak */
-        <section className="mx-auto max-w-7xl px-5 pb-20">
+        {/* =========================
+            LOADING
+        ========================= */}
+        {loading ? (
+          <section className="mx-auto max-w-7xl px-5 pb-16 sm:pb-20">
+            <div className="rounded-3xl bg-[#FFFDF8] p-8 text-center text-gray-500 shadow-sm ring-1 ring-[#E9E1D2] sm:p-10">
+              Memuat informasi kontak...
+            </div>
+          </section>
+        ) : !kontak ? (
+          <section className="mx-auto max-w-7xl px-5 pb-16 sm:pb-20">
+            <div className="rounded-3xl bg-[#FFFDF8] p-8 text-center text-gray-500 shadow-sm ring-1 ring-[#E9E1D2] sm:p-10">
+              Informasi kontak belum tersedia.
+            </div>
+          </section>
+        ) : (
 
-          <div className="grid gap-10 lg:grid-cols-2">
+          /* =========================
+             INFORMASI KONTAK
+          ========================= */
+          <section className="mx-auto max-w-7xl px-5 pb-16 sm:pb-20">
 
-            {/* Informasi */}
-            <div className="space-y-6">
+            <div className="grid gap-6 lg:grid-cols-2 lg:gap-10">
 
-              {/* Alamat */}
-              <div className="rounded-2xl border p-6 shadow-sm">
+              {/* =========================
+                  KOLOM KIRI
+              ========================= */}
+              <div className="space-y-4 sm:space-y-6">
 
-                <h2 className="text-xl font-bold">
-                  📍 Alamat
-                </h2>
+                {/* Alamat */}
+                <div className="rounded-3xl bg-[#FFFDF8] p-5 shadow-sm ring-1 ring-[#E9E1D2] transition hover:-translate-y-1 hover:shadow-md sm:p-7">
 
-                <p className="mt-3 text-gray-600 leading-7">
-                  {kontak.alamat || "-"}
-                </p>
-
-              </div>
-
-              {/* Telepon */}
-              <div className="rounded-2xl border p-6 shadow-sm">
-
-                <h2 className="text-xl font-bold">
-                  📞 Telepon
-                </h2>
-
-                {kontak.telepon ? (
-                  <a
-                    href={`tel:${kontak.telepon}`}
-                    className="mt-3 inline-block text-gray-600 hover:text-green-600"
-                  >
-                    {kontak.telepon}
-                  </a>
-                ) : (
-                  <p className="mt-3 text-gray-600">
-                    -
-                  </p>
-                )}
-
-              </div>
-
-              {/* WhatsApp */}
-              <div className="rounded-2xl border p-6 shadow-sm">
-
-                <h2 className="text-xl font-bold">
-                  💬 WhatsApp
-                </h2>
-
-                {kontak.whatsapp ? (
-                  <a
-                    href={`https://wa.me/${kontak.whatsapp.replace(
-                      /\D/g,
-                      ""
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-3 inline-block text-gray-600 hover:text-green-600"
-                  >
-                    {kontak.whatsapp}
-                  </a>
-                ) : (
-                  <p className="mt-3 text-gray-600">
-                    -
-                  </p>
-                )}
-
-              </div>
-
-              {/* Email */}
-              <div className="rounded-2xl border p-6 shadow-sm">
-
-                <h2 className="text-xl font-bold">
-                  ✉ Email
-                </h2>
-
-                {kontak.email ? (
-                  <a
-                    href={`mailto:${kontak.email}`}
-                    className="mt-3 inline-block break-all text-gray-600 hover:text-green-600"
-                  >
-                    {kontak.email}
-                  </a>
-                ) : (
-                  <p className="mt-3 text-gray-600">
-                    -
-                  </p>
-                )}
-
-              </div>
-
-              {/* Jam Operasional */}
-              {kontak.jam_operasional && (
-                <div className="rounded-2xl border p-6 shadow-sm">
-
-                  <h2 className="text-xl font-bold">
-                    🕐 Jam Operasional
+                  <h2 className="text-lg font-bold text-gray-900 sm:text-xl">
+                    📍 Alamat
                   </h2>
 
-                  <p className="mt-3 text-gray-600">
-                    {kontak.jam_operasional}
+                  <p className="mt-3 leading-7 text-gray-600">
+                    {kontak.alamat || "-"}
                   </p>
 
                 </div>
-              )}
 
-            </div>
+                {/* Telepon */}
+                <div className="rounded-3xl bg-[#FFFDF8] p-5 shadow-sm ring-1 ring-[#E9E1D2] transition hover:-translate-y-1 hover:shadow-md sm:p-7">
 
-            {/* Google Maps & Sosial Media */}
-            <div className="space-y-6">
+                  <h2 className="text-lg font-bold text-gray-900 sm:text-xl">
+                    📞 Telepon
+                  </h2>
 
-              {/* Google Maps */}
-              <div className="overflow-hidden rounded-2xl border shadow-sm">
+                  {kontak.telepon ? (
+                    <a
+                      href={`tel:${kontak.telepon}`}
+                      className="mt-3 inline-block text-gray-600 transition hover:text-green-600"
+                    >
+                      {kontak.telepon}
+                    </a>
+                  ) : (
+                    <p className="mt-3 text-gray-600">
+                      -
+                    </p>
+                  )}
 
-                {kontak.maps_url ? (
-  <iframe
-    title={`Lokasi ${kontak.nama_instansi}`}
-    src={kontak.maps_url}
-    width="100%"
-    height="400"
-    loading="lazy"
-    className="border-0"
-  />
-) : (
-                  <div className="flex h-[400px] items-center justify-center text-gray-500">
-                    Lokasi belum tersedia.
+                </div>
+
+                {/* WhatsApp */}
+                <div className="rounded-3xl bg-[#FFFDF8] p-5 shadow-sm ring-1 ring-[#E9E1D2] transition hover:-translate-y-1 hover:shadow-md sm:p-7">
+
+                  <h2 className="text-lg font-bold text-gray-900 sm:text-xl">
+                    💬 WhatsApp
+                  </h2>
+
+                  {kontak.whatsapp ? (
+                    <a
+                      href={`https://wa.me/${kontak.whatsapp.replace(
+                        /\D/g,
+                        ""
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-block text-gray-600 transition hover:text-green-600"
+                    >
+                      {kontak.whatsapp}
+                    </a>
+                  ) : (
+                    <p className="mt-3 text-gray-600">
+                      -
+                    </p>
+                  )}
+
+                </div>
+
+                {/* Email */}
+                <div className="rounded-3xl bg-[#FFFDF8] p-5 shadow-sm ring-1 ring-[#E9E1D2] transition hover:-translate-y-1 hover:shadow-md sm:p-7">
+
+                  <h2 className="text-lg font-bold text-gray-900 sm:text-xl">
+                    ✉️ Email
+                  </h2>
+
+                  {kontak.email ? (
+                    <a
+                      href={`mailto:${kontak.email}`}
+                      className="mt-3 inline-block break-all text-gray-600 transition hover:text-green-600"
+                    >
+                      {kontak.email}
+                    </a>
+                  ) : (
+                    <p className="mt-3 text-gray-600">
+                      -
+                    </p>
+                  )}
+
+                </div>
+
+                {/* Jam Operasional */}
+                {kontak.jam_operasional && (
+                  <div className="rounded-3xl bg-[#FFFDF8] p-5 shadow-sm ring-1 ring-[#E9E1D2] transition hover:-translate-y-1 hover:shadow-md sm:p-7">
+
+                    <h2 className="text-lg font-bold text-gray-900 sm:text-xl">
+                      🕐 Jam Operasional
+                    </h2>
+
+                    <p className="mt-3 leading-7 text-gray-600">
+                      {kontak.jam_operasional}
+                    </p>
+
                   </div>
                 )}
 
               </div>
 
-              {/* Sosial Media */}
-              <div className="rounded-2xl border p-6 shadow-sm">
+              {/* =========================
+                  KOLOM KANAN
+              ========================= */}
+              <div className="space-y-4 sm:space-y-6">
 
-                <h2 className="text-2xl font-bold">
-                  Ikuti Kami
-                </h2>
+                {/* Google Maps */}
+                <div className="overflow-hidden rounded-3xl bg-[#FFFDF8] shadow-sm ring-1 ring-[#E9E1D2]">
 
-                <p className="mt-3 text-gray-600">
-                  Dapatkan informasi terbaru melalui media sosial Pesona Beji.
-                </p>
-
-                <div className="mt-6 flex flex-wrap gap-4">
-
-                  {kontak.instagram && (
-                    <a
-                      href={kontak.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-xl border px-5 py-3 transition hover:bg-green-600 hover:text-white"
-                    >
-                      📷 Instagram
-                    </a>
+                  {kontak.maps_url ? (
+                    <iframe
+                      title={`Lokasi ${kontak.nama_instansi}`}
+                      src={kontak.maps_url}
+                      width="100%"
+                      height="300"
+                      loading="lazy"
+                      className="border-0 sm:h-[400px]"
+                    />
+                  ) : (
+                    <div className="flex h-[300px] items-center justify-center text-gray-500 sm:h-[400px]">
+                      Lokasi belum tersedia.
+                    </div>
                   )}
 
-                  {kontak.facebook && (
-                    <a
-                      href={kontak.facebook}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-xl border px-5 py-3 transition hover:bg-green-600 hover:text-white"
-                    >
-                      📘 Facebook
-                    </a>
-                  )}
+                </div>
 
-                  {kontak.youtube && (
-                    <a
-                      href={kontak.youtube}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-xl border px-5 py-3 transition hover:bg-green-600 hover:text-white"
-                    >
-                      ▶ YouTube
-                    </a>
-                  )}
+                {/* =========================
+                    SOSIAL MEDIA
+                ========================= */}
+                <div className="rounded-3xl bg-[#FFFDF8] p-5 shadow-sm ring-1 ring-[#E9E1D2] transition hover:-translate-y-1 hover:shadow-md sm:p-7">
 
-                  {kontak.tiktok && (
-                    <a
-                      href={kontak.tiktok}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-xl border px-5 py-3 transition hover:bg-green-600 hover:text-white"
-                    >
-                      🎵 TikTok
-                    </a>
-                  )}
+                  <h2 className="text-xl font-bold text-gray-900 sm:text-2xl">
+                    Ikuti Kami
+                  </h2>
 
-                  {!kontak.instagram &&
-                    !kontak.facebook &&
-                    !kontak.youtube &&
-                    !kontak.tiktok && (
-                      <p className="text-gray-500">
-                        Media sosial belum tersedia.
-                      </p>
+                  <p className="mt-3 leading-7 text-gray-600">
+                    Dapatkan informasi terbaru melalui media sosial Pesona Beji.
+                  </p>
+
+                  <div className="mt-5 grid grid-cols-2 gap-3 sm:mt-6 sm:flex sm:flex-wrap sm:gap-4">
+
+                    {/* Instagram */}
+                    {kontak.instagram && (
+                      <a
+                        href={kontak.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-xl border border-[#E9E1D2] px-4 py-3 text-center text-sm text-gray-700 transition hover:bg-green-600 hover:text-white sm:px-5 sm:text-base"
+                      >
+                        📷 Instagram
+                      </a>
                     )}
+
+                    {/* Facebook */}
+                    {kontak.facebook && (
+                      <a
+                        href={kontak.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-xl border border-[#E9E1D2] px-4 py-3 text-center text-sm text-gray-700 transition hover:bg-green-600 hover:text-white sm:px-5 sm:text-base"
+                      >
+                        📘 Facebook
+                      </a>
+                    )}
+
+                    {/* YouTube */}
+                    {kontak.youtube && (
+                      <a
+                        href={kontak.youtube}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-xl border border-[#E9E1D2] px-4 py-3 text-center text-sm text-gray-700 transition hover:bg-green-600 hover:text-white sm:px-5 sm:text-base"
+                      >
+                        ▶ YouTube
+                      </a>
+                    )}
+
+                    {/* TikTok */}
+                    {kontak.tiktok && (
+                      <a
+                        href={kontak.tiktok}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-xl border border-[#E9E1D2] px-4 py-3 text-center text-sm text-gray-700 transition hover:bg-green-600 hover:text-white sm:px-5 sm:text-base"
+                      >
+                        🎵 TikTok
+                      </a>
+                    )}
+
+                    {/* Jika tidak ada sosial media */}
+                    {!kontak.instagram &&
+                      !kontak.facebook &&
+                      !kontak.youtube &&
+                      !kontak.tiktok && (
+                        <p className="col-span-2 text-sm text-gray-500">
+                          Media sosial belum tersedia.
+                        </p>
+                      )}
+
+                  </div>
 
                 </div>
 
@@ -285,10 +306,10 @@ export default function KontakPage() {
 
             </div>
 
-          </div>
+          </section>
+        )}
 
-        </section>
-      )}
+      </main>
 
       <Footer />
     </>

@@ -49,7 +49,7 @@ export default function AppRoutes() {
       <Route path="/berita/:slug" element={<BeritaDetailPage />} />
       <Route path="/galeri" element={<GaleriPage />} />
       <Route path="/kontak" element={<KontakPage />} />
-      <Route path="/kopi/pelaku/:id" element={<PelakuKopiDetailPage />} />
+      <Route path="/kopi/pelaku/:slug" element={<PelakuKopiDetailPage />} />
     </Route>
 
     {/* Login (tanpa layout admin) */}

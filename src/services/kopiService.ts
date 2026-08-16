@@ -9,10 +9,15 @@ export type KopiBeji = {
   updated_at: string;
 };
 
+/* ================================
+   AMBIL DATA KOPI BEJI
+================================ */
+
 export async function getKopiBeji() {
   const { data, error } = await supabase
     .from("kopi_beji")
     .select("*")
+    .order("created_at", { ascending: true })
     .limit(1)
     .maybeSingle();
 
@@ -22,6 +27,10 @@ export async function getKopiBeji() {
 
   return data as KopiBeji | null;
 }
+
+/* ================================
+   BUAT DATA KOPI BEJI
+================================ */
 
 export async function createKopiBeji(
   data: Omit<
@@ -41,6 +50,10 @@ export async function createKopiBeji(
 
   return result as KopiBeji;
 }
+
+/* ================================
+   UPDATE DATA KOPI BEJI
+================================ */
 
 export async function updateKopiBeji(
   id: string,
@@ -63,4 +76,36 @@ export async function updateKopiBeji(
   }
 
   return result as KopiBeji;
+}
+
+/* ================================
+   UPLOAD FOTO TENTANG KOPI BEJI
+================================ */
+
+export async function uploadFotoTentangKopiBeji(
+  file: File
+) {
+  const extension =
+    file.name.split(".").pop()?.toLowerCase() || "jpg";
+
+  const fileName = `tentang-${Date.now()}.${extension}`;
+
+  const filePath = `tentang/${fileName}`;
+
+  const { error } = await supabase.storage
+    .from("kopi")
+    .upload(filePath, file, {
+      cacheControl: "3600",
+      upsert: false,
+    });
+
+  if (error) {
+    throw error;
+  }
+
+  const { data } = supabase.storage
+    .from("kopi")
+    .getPublicUrl(filePath);
+
+  return data.publicUrl;
 }

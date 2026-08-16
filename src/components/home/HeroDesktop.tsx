@@ -53,9 +53,9 @@ export default function HeroDesktop({
           </div>
 
           {/* TITLE */}
-          <h1 className="m-0 break-words text-[78px] font-extrabold leading-[1] text-[#214E28]">
-            {banner.title}
-          </h1>
+          <h1 className="m-0 whitespace-nowrap text-[78px] font-extrabold leading-[1] text-[#214E28]">
+  {banner.title}
+</h1>
 
           {/* SUBTITLE */}
           <h2 className="mt-[22px] whitespace-pre-line text-[38px] font-bold leading-[1.35] text-[#3D3D3D]">

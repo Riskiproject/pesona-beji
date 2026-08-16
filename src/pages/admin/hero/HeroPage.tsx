@@ -1,6 +1,36 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getAllHero } from "../../../services/heroService";
 
 export default function HeroPage() {
+  const [berandaCount, setBerandaCount] = useState(0);
+  const [potensiCount, setPotensiCount] = useState(0);
+  const [kopiCount, setKopiCount] = useState(0);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadHero = async () => {
+      try {
+        const [beranda, potensi, kopi] = await Promise.all([
+          getAllHero("beranda"),
+          getAllHero("potensi"),
+          getAllHero("kopi"),
+        ]);
+
+        setBerandaCount(beranda.length);
+        setPotensiCount(potensi.length);
+        setKopiCount(kopi.length);
+      } catch (error) {
+        console.error("Gagal mengambil data hero:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadHero();
+  }, []);
+
   return (
     <div className="space-y-8">
 
@@ -15,7 +45,11 @@ export default function HeroPage() {
         </p>
       </div>
 
-      {/* Hero Beranda */}
+
+      {/* ========================= */}
+      {/* HERO BERANDA */}
+      {/* ========================= */}
+
       <div className="rounded-2xl border bg-white p-6 shadow-sm">
 
         <div className="flex items-start justify-between">
@@ -34,13 +68,27 @@ export default function HeroPage() {
 
               <p>
                 Banner :
-                <span className="font-semibold"> 0 / 3</span>
+                <span className="font-semibold">
+                  {" "}
+                  {loading ? "..." : `${berandaCount} / 3`}
+                </span>
               </p>
 
               <p>
                 Status :
-                <span className="font-semibold text-red-600">
-                  {" "}Belum dibuat
+                <span
+                  className={`font-semibold ${
+                    berandaCount > 0
+                      ? "text-green-600"
+                      : "text-red-600"
+                  }`}
+                >
+                  {" "}
+                  {loading
+                    ? "Memuat..."
+                    : berandaCount > 0
+                    ? "Sudah dibuat"
+                    : "Belum dibuat"}
                 </span>
               </p>
 
@@ -59,7 +107,11 @@ export default function HeroPage() {
 
       </div>
 
-      {/* Hero Potensi */}
+
+      {/* ========================= */}
+      {/* HERO POTENSI */}
+      {/* ========================= */}
+
       <div className="rounded-2xl border bg-white p-6 shadow-sm">
 
         <div className="flex items-start justify-between">
@@ -78,8 +130,19 @@ export default function HeroPage() {
 
               <p>
                 Status :
-                <span className="font-semibold text-red-600">
-                  {" "}Belum dibuat
+                <span
+                  className={`font-semibold ${
+                    potensiCount > 0
+                      ? "text-green-600"
+                      : "text-red-600"
+                  }`}
+                >
+                  {" "}
+                  {loading
+                    ? "Memuat..."
+                    : potensiCount > 0
+                    ? "Sudah dibuat"
+                    : "Belum dibuat"}
                 </span>
               </p>
 
@@ -98,7 +161,11 @@ export default function HeroPage() {
 
       </div>
 
-      {/* Hero Kopi */}
+
+      {/* ========================= */}
+      {/* HERO KOPI */}
+      {/* ========================= */}
+
       <div className="rounded-2xl border bg-white p-6 shadow-sm">
 
         <div className="flex items-start justify-between">
@@ -117,8 +184,19 @@ export default function HeroPage() {
 
               <p>
                 Status :
-                <span className="font-semibold text-red-600">
-                  {" "}Belum dibuat
+                <span
+                  className={`font-semibold ${
+                    kopiCount > 0
+                      ? "text-green-600"
+                      : "text-red-600"
+                  }`}
+                >
+                  {" "}
+                  {loading
+                    ? "Memuat..."
+                    : kopiCount > 0
+                    ? "Sudah dibuat"
+                    : "Belum dibuat"}
                 </span>
               </p>
 

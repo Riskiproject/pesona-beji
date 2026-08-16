@@ -260,10 +260,12 @@ const handleGallery = (
 };
 
 async function handleSave() {
-
   setSaving(true);
 
   try {
+    // =========================
+    // VALIDASI
+    // =========================
 
     if (!title.trim()) {
       toast.error("Nama UMKM wajib diisi");
@@ -290,72 +292,99 @@ async function handleSave() {
       return;
     }
 
+    // =========================
+    // UPLOAD COVER
+    // =========================
+
     let imageUrl = preview;
 
     if (selectedFile) {
-
-      imageUrl =
-        await uploadUmkmImage(
-          selectedFile
-        );
-
+      try {
+        imageUrl = await uploadUmkmImage(selectedFile);
+      } catch (error) {
+        console.error("ERROR UPLOAD COVER:", error);
+        toast.error("Gagal upload gambar cover.");
+        return;
+      }
     }
 
+    // =========================
+    // PAYLOAD UMKM
+    // =========================
+
     const payload = {
-
-      title,
-
-      slug,
-
-      owner,
-
-      kategori,
-
-      alamat,
-
-      whatsapp,
-
-      maps_url: mapsUrl,
-
-      short_description:
-        shortDescription,
-
-      description,
-
-      image_url:
-        imageUrl,
-
-      is_active:
-        isActive,
-
+      title: title.trim(),
+      slug: slug.trim(),
+      owner: owner.trim(),
+      kategori: kategori.trim(),
+      alamat: alamat.trim(),
+      whatsapp: whatsapp.trim(),
+      maps_url: mapsUrl.trim(),
+      short_description: shortDescription.trim(),
+      description: description.trim(),
+      image_url: imageUrl,
+      is_active: isActive,
     };
 
-    if (umkm) {
+    console.log("PAYLOAD UMKM:", payload);
 
-      await updateUmkm(
-        umkm.id,
-        payload
-      );
+    // =========================
+    // UPDATE
+    // =========================
+
+    if (umkm) {
+      try {
+        await updateUmkm(umkm.id, payload);
+      } catch (error) {
+        console.error("ERROR UPDATE UMKM:", error);
+        toast.error("Gagal update data UMKM.");
+        return;
+      }
+
+      // =========================
+      // GALERI BARU
+      // =========================
 
       for (let i = 0; i < galleryFiles.length; i++) {
+        const file = galleryFiles[i];
 
-        const file =
-          galleryFiles[i];
+        let url: string;
 
-        const url =
-          await uploadUmkmGallery(file);
+        try {
+          url = await uploadUmkmGallery(file);
+        } catch (error) {
+          console.error(
+            "ERROR UPLOAD GALERI:",
+            file.name,
+            error
+          );
 
-        await createUmkmGallery({
+          toast.error(
+            `Gagal upload galeri: ${file.name}`
+          );
 
-          umkm_id: umkm.id,
+          return;
+        }
 
-          image_url: url,
+        try {
+          await createUmkmGallery({
+            umkm_id: umkm.id,
+            image_url: url,
+            sort_order:
+              oldGallery.length + i + 1,
+          });
+        } catch (error) {
+          console.error(
+            "ERROR SIMPAN GALERI:",
+            error
+          );
 
-          sort_order:
-            oldGallery.length + i + 1,
+          toast.error(
+            `Gagal menyimpan galeri: ${file.name}`
+          );
 
-        });
-
+          return;
+        }
       }
 
       toast.success(
@@ -364,54 +393,92 @@ async function handleSave() {
 
     } else {
 
-      const data =
-        await createUmkm(
-          payload
+      // =========================
+      // CREATE UMKM
+      // =========================
+
+      let data;
+
+      try {
+        data = await createUmkm(payload);
+      } catch (error) {
+        console.error(
+          "ERROR CREATE UMKM:",
+          error
         );
 
+        toast.error(
+          "Gagal menambahkan data UMKM."
+        );
+
+        return;
+      }
+
+      // =========================
+      // GALERI SAAT TAMBAH
+      // =========================
+
       for (let i = 0; i < galleryFiles.length; i++) {
+        const file = galleryFiles[i];
 
-        const file =
-          galleryFiles[i];
+        let url: string;
 
-        const url =
-          await uploadUmkmGallery(file);
+        try {
+          url = await uploadUmkmGallery(file);
+        } catch (error) {
+          console.error(
+            "ERROR UPLOAD GALERI:",
+            file.name,
+            error
+          );
 
-        await createUmkmGallery({
+          toast.error(
+            `Gagal upload galeri: ${file.name}`
+          );
 
-          umkm_id: data.id,
+          return;
+        }
 
-          image_url: url,
+        try {
+          await createUmkmGallery({
+            umkm_id: data.id,
+            image_url: url,
+            sort_order: i + 1,
+          });
+        } catch (error) {
+          console.error(
+            "ERROR SIMPAN GALERI:",
+            error
+          );
 
-          sort_order:
-            i + 1,
+          toast.error(
+            `Gagal menyimpan galeri: ${file.name}`
+          );
 
-        });
-
+          return;
+        }
       }
 
       toast.success(
         "UMKM berhasil ditambahkan."
       );
-
     }
 
     onClose();
 
   } catch (error) {
-
-    console.error(error);
+    console.error(
+      "ERROR UMUM SIMPAN UMKM:",
+      error
+    );
 
     toast.error(
-      "Gagal menyimpan data."
+      "Terjadi kesalahan saat menyimpan."
     );
 
   } finally {
-
     setSaving(false);
-
   }
-
 }
 
 if (!isOpen) return null;

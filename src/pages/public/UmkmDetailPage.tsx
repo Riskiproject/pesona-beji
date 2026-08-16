@@ -9,198 +9,212 @@ import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 
 export default function UmkmDetailPage() {
+  const { slug } = useParams();
 
-const { slug } = useParams();
+  const [umkm, setUmkm] = useState<any>(null);
+  const [gallery, setGallery] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-const [umkm, setUmkm] = useState<any>(null);
+  useEffect(() => {
+    loadData();
+  }, [slug]);
 
-const [gallery, setGallery] =
-  useState<any[]>([]);
+  async function loadData() {
+    try {
+      if (!slug) return;
 
-const [loading, setLoading] =
-  useState(true);
+      const data = await getUmkmBySlug(slug);
 
-useEffect(() => {
+      setUmkm(data);
 
-  loadData();
-
-}, [slug]);
-
-async function loadData() {
-
-  try {
-
-    if (!slug) return;
-
-    const data =
-      await getUmkmBySlug(slug);
-
-    setUmkm(data);
-
-    const galeri =
-      await getUmkmGallery(data.id);
-
-    setGallery(galeri || []);
-
-  } catch (error) {
-
-    console.error(error);
-
-  } finally {
-
-    setLoading(false);
-
+      const galeri = await getUmkmGallery(data.id);
+      setGallery(galeri || []);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   }
 
-}
+  if (loading) {
+    return (
+      <>
+        <Navbar />
 
-if (loading) {
-  
+        <main className="min-h-screen bg-[#F7F4ED] py-32 text-center text-gray-500">
+          Memuat...
+        </main>
+
+        <Footer />
+      </>
+    );
+  }
+
+  if (!umkm) {
+    return (
+      <>
+        <Navbar />
+
+        <main className="min-h-screen bg-[#F7F4ED] py-32 text-center text-gray-600">
+          UMKM tidak ditemukan.
+        </main>
+
+        <Footer />
+      </>
+    );
+  }
 
   return (
-
     <>
       <Navbar />
 
-      <div className="py-32 text-center">
+      <main className="min-h-screen bg-[#F7F4ED]">
 
-        Memuat...
+        {/* =========================
+            KEMBALI
+        ========================= */}
+        <div className="mx-auto max-w-7xl px-5 pt-20 md:pt-24">
+          <Link
+            to="/umkm"
+            className="inline-flex items-center rounded-xl bg-green-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-700 md:px-5 md:py-3 md:text-base"
+          >
+            ← Kembali ke UMKM
+          </Link>
+        </div>
 
+        {/* =========================
+            HEADER
+        ========================= */}
+        <section className="mx-auto max-w-7xl px-5 pb-8 pt-6 md:pb-10 md:pt-8">
+          <h1 className="text-3xl font-bold leading-tight text-gray-900 md:text-4xl">
+            {umkm.title}
+          </h1>
+
+          <p className="mt-2 text-base font-medium text-green-600 md:text-lg">
+            👤 {umkm.owner}
+          </p>
+        </section>
+
+        {/* =========================
+    FOTO + TENTANG PRODUK
+========================= */}
+<section className="mx-auto max-w-7xl px-5 pb-10 md:pb-12">
+
+  <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-12">
+
+    {/* FOTO */}
+    <div className="w-full lg:sticky lg:top-28">
+      <div className="overflow-hidden rounded-2xl bg-gray-200">
+        <img
+          src={umkm.image_url}
+          alt={umkm.title}
+          className="aspect-[4/3] w-full object-cover"
+        />
       </div>
+    </div>
 
-      <Footer />
+    {/* TENTANG PRODUK */}
+    <div>
+      <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">
+        Tentang Produk
+      </h2>
 
-    </>
+      <div className="mt-3 h-1 w-14 rounded-full bg-green-600" />
 
-  );
+      <p className="mt-5 whitespace-pre-line text-sm leading-7 text-gray-600 md:text-base md:leading-8">
+        {umkm.description}
+      </p>
+    </div>
 
-}
+  </div>
 
-if (!umkm) {
+</section>
 
-  return (
-
-    <>
-      <Navbar />
-
-      <div className="py-32 text-center">
-
-        UMKM tidak ditemukan.
-
-      </div>
-
-      <Footer />
-
-    </>
-
-  );
-
-}
-
-  return (
-    <>
-      <Navbar />
-
-      <div className="mx-auto max-w-7xl px-5 pt-22">
-  <Link
-    to="/umkm"
-    className="inline-flex items-center rounded-xl bg-green-600 px-5 py-3 font-medium text-white transition hover:bg-green-700"
-  >
-    ← Kembali ke UMKM
-  </Link>
-</div>
-
-      {/* Header */}
-      <section className="mx-auto max-w-7xl px-5 pt-8 pb-12">
-        <h1 className="text-4xl font-bold">
-  {umkm.title}
-</h1>
-
-<p className="mt-3 text-lg text-green-600 font-medium">
-  {umkm.owner}
-</p>
-      </section>
-
-      {/* Detail */}
-      <section className="mx-auto max-w-7xl px-5 pb-16">
-        <div className="grid gap-10 lg:grid-cols-2">
-
-          <img
-  src={umkm.image_url}
-  alt={umkm.title}
-  className="w-full rounded-2xl"
-/>
+        {/* =========================
+            KONTAK PEMILIK
+        ========================= */}
+        <section className="mx-auto max-w-7xl px-5 pb-12 md:pb-14">
 
           <div>
-
-            <h2 className="text-3xl font-bold">
-              Tentang Produk
+            <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">
+              Hubungi Pemilik
             </h2>
 
-            <p className="mt-5 leading-8 text-gray-600 whitespace-pre-line">
-  {umkm.description}
-</p>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-600 md:text-base md:leading-7">
+              Tertarik dengan produk ini? Hubungi pemilik UMKM
+              untuk mendapatkan informasi lebih lanjut.
+            </p>
 
-            <div className="mt-8 flex gap-4">
+            <div className="mt-5 flex flex-wrap gap-3 md:mt-6 md:gap-4">
 
-             <a
-  href={`https://wa.me/${umkm.whatsapp}`}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="rounded-xl bg-green-600 px-5 py-3 text-white"
->
-  💬 WhatsApp
-</a>
+              {/* WHATSAPP */}
+              {umkm.whatsapp && (
+                <a
+                  href={`https://wa.me/${umkm.whatsapp.replace(/\D/g, "")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-green-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-green-700 md:px-5 md:py-3 md:text-base"
+                >
+                  💬 WhatsApp
+                </a>
+              )}
 
-             <a
-  href={umkm.maps_url}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="rounded-xl border px-5 py-3"
->
-  📍 Lokasi
-</a>
+              {/* LOKASI */}
+              {umkm.maps_url && (
+                <a
+                  href={umkm.maps_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-100 md:px-5 md:py-3 md:text-base"
+                >
+                  📍 Lihat Lokasi
+                </a>
+              )}
 
             </div>
-
           </div>
 
-        </div>
-      </section>
+        </section>
 
-      {/* Galeri */}
-      <section className="mx-auto max-w-7xl px-5 pb-20">
+        {/* =========================
+            GALERI
+        ========================= */}
+        <section className="mx-auto max-w-7xl px-5 pb-16 md:pb-20">
 
-        <h2 className="mb-8 text-3xl font-bold">
-          Galeri Produk
-        </h2>
+          <div className="mb-6 md:mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">
+              Galeri Produk
+            </h2>
 
-        <div className="grid gap-6 md:grid-cols-3">
+            <p className="mt-2 text-sm text-gray-600 md:text-base">
+              Dokumentasi produk dan kegiatan UMKM Desa Beji.
+            </p>
+          </div>
 
-  {gallery.length === 0 ? (
+          {gallery.length === 0 ? (
+            <p className="text-gray-500">
+              Belum ada galeri.
+            </p>
+          ) : (
+            <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 md:gap-6">
+              {gallery.map((item) => (
+                <div
+                  key={item.id}
+                  className="aspect-[4/3] overflow-hidden rounded-xl bg-gray-200 shadow-sm md:rounded-2xl"
+                >
+                  <img
+                    src={item.image_url}
+                    alt={umkm.title}
+                    className="h-full w-full object-cover transition duration-300 hover:scale-105"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
 
-    <p className="col-span-3 text-center text-gray-500">
-      Belum ada galeri.
-    </p>
+        </section>
 
-  ) : (
-
-    gallery.map((item) => (
-
-      <img
-        key={item.id}
-        src={item.image_url}
-        alt={umkm.title}
-        className="rounded-2xl"
-      />
-
-    ))
-
-  )}
-
-</div>
-
-      </section>
+      </main>
 
       <Footer />
     </>

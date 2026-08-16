@@ -101,6 +101,8 @@ if (!headline) {
     <>
       <Navbar />
 
+          <main className="min-h-screen bg-[#F7F4ED]">
+
       {/* Header */}
       <section className="mx-auto max-w-7xl px-5 pt-28 pb-12">
 
@@ -121,48 +123,48 @@ if (!headline) {
       </section>
 
       {/* Headline */}
-      <section className="mx-auto max-w-7xl px-5 pb-20">
+<section className="mx-auto max-w-7xl px-5 pb-12 md:pb-20">
 
-        <div className="grid overflow-hidden rounded-3xl border bg-white shadow-sm lg:grid-cols-2">
+  <div className="grid overflow-hidden rounded-2xl border bg-white shadow-sm lg:grid-cols-2">
 
-          <img
-            src={headline.gambar}
-            alt={headline.judul}
-            className="h-full min-h-[380px] w-full object-cover"
-          />
+    <img
+      src={headline.gambar}
+      alt={headline.judul}
+      className="h-40 w-full object-cover sm:h-52 lg:h-full lg:min-h-[380px]"
+    />
 
-          <div className="flex flex-col justify-center p-10">
+    <div className="flex flex-col justify-center p-4 sm:p-6 lg:p-10">
 
-            <span className="inline-flex w-fit rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-green-700">
-              ⭐ Berita Terbaru
-            </span>
+      <span className="inline-flex w-fit rounded-full bg-green-100 px-3 py-1 text-[10px] font-semibold text-green-700 md:px-4 md:py-2 md:text-sm">
+        ⭐ Berita Terbaru
+      </span>
 
-            <h2 className="mt-6 text-4xl font-bold leading-tight">
-              {headline.judul}
-            </h2>
+      <h2 className="mt-3 line-clamp-2 text-xl font-bold leading-tight md:mt-6 md:text-4xl">
+        {headline.judul}
+      </h2>
 
-            <p className="mt-4 text-sm text-gray-500">
-              📅 {formatDate(headline.tanggal_publish)}
-              <span className="mx-2">•</span>
-              📂 {headline.kategori}
-            </p>
+      <p className="mt-2 text-[10px] text-gray-500 md:mt-4 md:text-sm">
+        📅 {formatDate(headline.tanggal_publish)}
+        <span className="mx-1">•</span>
+        📂 {headline.kategori}
+      </p>
 
-            <p className="mt-6 leading-8 text-gray-600">
-              {headline.ringkasan}
-            </p>
+      <p className="mt-3 line-clamp-2 text-xs leading-5 text-gray-600 md:mt-6 md:text-base md:leading-8">
+        {headline.ringkasan}
+      </p>
 
-            <Link
-              to={`/berita/${headline.slug}`}
-              className="mt-8 w-fit font-semibold text-green-600 hover:underline"
-            >
-              Baca Selengkapnya →
-            </Link>
+      <Link
+        to={`/berita/${headline.slug}`}
+        className="mt-3 w-fit text-xs font-semibold text-green-600 hover:underline md:mt-8 md:text-base"
+      >
+        Baca Selengkapnya →
+      </Link>
 
-          </div>
+    </div>
 
-        </div>
+  </div>
 
-      </section>
+</section>
 
       {/* Berita Lainnya */}
       <section className="mx-auto max-w-7xl px-5 pb-20">
@@ -181,55 +183,58 @@ if (!headline) {
 
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3 lg:gap-8">
 
           {lainnya.map((item) => (
 
-            <Link
-              key={item.id}
-              to={`/berita/${item.slug}`}
-              className="group overflow-hidden rounded-2xl border bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-            >
+  <Link
+    key={item.id}
+    to={`/berita/${item.slug}`}
+    className="group flex h-full flex-col overflow-hidden rounded-xl border bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg md:rounded-2xl"
+  >
 
-              <div className="overflow-hidden">
-                <img
-                  src={item.gambar}
-                  alt={item.judul}
-                  className="h-56 w-full object-cover transition duration-300 group-hover:scale-105"
-                />
-              </div>
+    {/* FOTO */}
+    <div className="aspect-[4/3] w-full overflow-hidden bg-gray-200">
+      <img
+        src={item.gambar}
+        alt={item.judul}
+        className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+      />
+    </div>
 
-              <div className="p-6">
+    {/* ISI */}
+    <div className="flex flex-1 flex-col p-2.5 md:p-5">
 
-                <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
-                  {item.kategori}
-                </span>
+      <span className="w-fit rounded-full bg-green-100 px-2 py-1 text-[8px] font-semibold text-green-700 md:px-3 md:text-xs">
+        {item.kategori}
+      </span>
 
-                <p className="mt-4 text-sm text-gray-500">
-                  📅 {formatDate(item.tanggal_publish)}
-                </p>
+      <p className="mt-1.5 text-[8px] text-gray-500 md:mt-3 md:text-xs">
+        📅 {formatDate(item.tanggal_publish)}
+      </p>
 
-                <h3 className="mt-3 line-clamp-2 text-2xl font-bold">
-                  {item.judul}
-                </h3>
+      <h3 className="mt-1.5 line-clamp-2 text-xs font-bold leading-tight text-gray-900 md:mt-3 md:text-lg">
+        {item.judul}
+      </h3>
 
-                <p className="mt-4 line-clamp-3 leading-7 text-gray-600">
-                  {item.ringkasan}
-                </p>
+      <p className="mt-1.5 line-clamp-2 text-[9px] leading-4 text-gray-600 md:mt-3 md:text-sm md:leading-6">
+        {item.ringkasan}
+      </p>
 
-                <span className="mt-6 inline-flex items-center font-semibold text-green-600">
-                  Baca Selengkapnya →
-                </span>
+      <span className="mt-2 text-[9px] font-semibold text-green-600 md:mt-4 md:text-sm">
+        Baca Selengkapnya →
+      </span>
 
-              </div>
+    </div>
 
-            </Link>
+  </Link>
 
-          ))}
+))}
 
         </div>
 
       </section>
+    </main>
       <Footer />
     </>
   );

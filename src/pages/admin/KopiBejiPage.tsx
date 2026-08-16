@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import {
   getKopiBeji,
+  createKopiBeji,
   updateKopiBeji,
+  uploadFotoTentangKopiBeji,
   type KopiBeji,
 } from "../../services/kopiService";
 
@@ -16,10 +18,30 @@ export default function KopiBejiPage() {
   const [pelaku, setPelaku] = useState<PelakuKopi[]>([]);
 
   const [tentang, setTentang] = useState("");
-  const [sejarah, setSejarah] = useState("");
+const [sejarah, setSejarah] = useState("");
+
+const [fotoFile, setFotoFile] = useState<File | null>(null);
+const [fotoPreview, setFotoPreview] = useState<string | null>(null);
+
+  
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [toast, setToast] = useState<{
+  type: "success" | "error";
+  message: string;
+} | null>(null);
+
+const showToast = (
+  type: "success" | "error",
+  message: string
+) => {
+  setToast({ type, message });
+
+  setTimeout(() => {
+    setToast(null);
+  }, 3000);
+};
 
   const loadData = async () => {
     try {
@@ -34,9 +56,14 @@ export default function KopiBejiPage() {
       setPelaku(pelakuData);
 
       if (kopiData) {
-        setTentang(kopiData.tentang_deskripsi || "");
-        setSejarah(kopiData.sejarah || "");
-      }
+  setTentang(kopiData.tentang_deskripsi || "");
+  setSejarah(kopiData.sejarah || "");
+  setFotoPreview(kopiData.foto_tentang_url || null);
+} else {
+  setTentang("");
+  setSejarah("");
+  setFotoPreview(null);
+}
     } catch (error) {
       console.error(error);
       alert("Gagal mengambil data Kopi Beji.");
@@ -46,33 +73,72 @@ export default function KopiBejiPage() {
   };
 
   useEffect(() => {
-    loadData();
-  }, []);
+  loadData();
+}, []);
+
+  const handleFotoChange = (
+  e: React.ChangeEvent<HTMLInputElement>
+) => {
+  const file = e.target.files?.[0];
+
+  if (!file) return;
+
+  setFotoFile(file);
+
+  const previewUrl = URL.createObjectURL(file);
+  setFotoPreview(previewUrl);
+};
 
   const handleSave = async () => {
-    if (!kopi) {
-      alert("Data Kopi Beji belum tersedia.");
-      return;
+  try {
+    setSaving(true);
+
+    let fotoUrl = kopi?.foto_tentang_url || null;
+
+    // Jika memilih foto baru
+    if (fotoFile) {
+      fotoUrl = await uploadFotoTentangKopiBeji(fotoFile);
     }
 
-    try {
-      setSaving(true);
-
-      await updateKopiBeji(kopi.id, {
+    if (kopi) {
+      // DATA SUDAH ADA → UPDATE
+      const dataUpdate = await updateKopiBeji(kopi.id, {
+        foto_tentang_url: fotoUrl,
         tentang_deskripsi: tentang,
         sejarah: sejarah,
       });
 
-      alert("Informasi Kopi Beji berhasil disimpan.");
+      setKopi(dataUpdate);
+    } else {
+      // DATA BELUM ADA → CREATE
+      const dataBaru = await createKopiBeji({
+        foto_tentang_url: fotoUrl,
+        tentang_deskripsi: tentang,
+        sejarah: sejarah,
+      });
 
-      await loadData();
-    } catch (error) {
-      console.error(error);
-      alert("Gagal menyimpan perubahan.");
-    } finally {
-      setSaving(false);
+      setKopi(dataBaru);
     }
-  };
+
+    setFotoFile(null);
+
+    showToast(
+      "success",
+      "Informasi Kopi Beji berhasil disimpan."
+    );
+
+    await loadData();
+  } catch (error: any) {
+  console.error("GAGAL SIMPAN KOPI BEJI:", error);
+
+  showToast(
+    "error",
+    error?.message || "Gagal menyimpan perubahan."
+  );
+} finally {
+  setSaving(false);
+}
+};
 
   const handleDelete = async (id: string, nama: string) => {
     const yakin = window.confirm(
@@ -84,12 +150,18 @@ export default function KopiBejiPage() {
     try {
       await deletePelakuKopi(id);
 
-      alert("Pelaku berhasil dihapus.");
+      showToast(
+  "success",
+  "Pelaku berhasil dihapus."
+);
 
       await loadData();
     } catch (error) {
       console.error(error);
-      alert("Gagal menghapus pelaku.");
+     showToast(
+  "error",
+  "Gagal menghapus pelaku."
+);
     } 
   };
 
@@ -104,9 +176,22 @@ export default function KopiBejiPage() {
   }
 
   return (
-    <div className="space-y-8 p-6">
+  <div className="relative space-y-8 p-6">
 
-      {/* HEADER */}
+    {/* TOAST */}
+    {toast && (
+      <div
+        className={`fixed right-6 top-6 z-50 rounded-xl px-5 py-4 font-semibold text-white shadow-lg ${
+          toast.type === "success"
+            ? "bg-green-600"
+            : "bg-red-600"
+        }`}
+      >
+        {toast.message}
+      </div>
+    )}
+
+    {/* HEADER */}
       <div>
         <h1 className="text-3xl font-bold text-gray-900">
           Kopi Beji
@@ -130,6 +215,35 @@ export default function KopiBejiPage() {
             Informasi ini akan ditampilkan pada halaman Kopi Beji.
           </p>
         </div>
+
+        {/* FOTO TENTANG KOPI BEJI */}
+<div className="mb-6">
+  <label className="mb-2 block font-semibold text-gray-800">
+    Foto Tentang Kopi Beji
+  </label>
+
+  <p className="mb-4 text-sm text-gray-500">
+    Foto ini akan ditampilkan pada bagian Tentang Kopi Beji
+    di halaman publik.
+  </p>
+
+  {fotoPreview && (
+    <div className="mb-4">
+      <img
+        src={fotoPreview}
+        alt="Preview Kopi Beji"
+        className="h-64 w-full max-w-xl rounded-2xl object-cover border"
+      />
+    </div>
+  )}
+
+  <input
+    type="file"
+    accept="image/*"
+    onChange={handleFotoChange}
+    className="block w-full max-w-xl cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:rounded-lg file:border-0 file:bg-green-600 file:px-4 file:py-2 file:font-semibold file:text-white hover:file:bg-green-700"
+  />
+</div>
 
 
         {/* Tentang */}
@@ -167,12 +281,12 @@ export default function KopiBejiPage() {
         {/* Simpan */}
         <div className="mt-6">
           <button
-            onClick={handleSave}
-            disabled={saving || !kopi}
-            className="rounded-xl bg-green-600 px-6 py-3 font-semibold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {saving ? "Menyimpan..." : "Simpan Perubahan"}
-          </button>
+  onClick={handleSave}
+  disabled={saving}
+  className="rounded-xl bg-green-600 px-6 py-3 font-semibold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
+>
+  {saving ? "Menyimpan..." : "Simpan Perubahan"}
+</button>
         </div>
 
       </section>
@@ -297,11 +411,11 @@ export default function KopiBejiPage() {
                       <div className="flex flex-wrap gap-2">
 
                         <a
-                          href={`/admin/kopi-beji/edit/${item.id}`}
-                          className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
-                        >
-                          Edit
-                        </a>
+  href={`/admin/kopi/edit/${item.id}`}
+  className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+>
+  Edit
+</a>
 
                         <button
                           onClick={() =>

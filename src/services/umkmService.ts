@@ -52,16 +52,17 @@ export async function createUmkm(payload: any) {
 }
 
 export async function updateUmkm(id: string, payload: any) {
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from(TABLE)
     .update(payload)
-    .eq("id", id)
-    .select()
-    .single();
+    .eq("id", id);
 
-  if (error) throw error;
+  if (error) {
+    console.error("ERROR UPDATE UMKM SERVICE:", error);
+    throw error;
+  }
 
-  return data;
+  return true;
 }
 
 export async function deleteUmkm(id: string) {

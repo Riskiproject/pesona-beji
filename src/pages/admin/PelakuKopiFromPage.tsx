@@ -24,140 +24,214 @@ export default function PelakuKopiFormPage() {
   const [lokasiUrl, setLokasiUrl] = useState("");
 
   const [fotoUrl, setFotoUrl] = useState<string | null>(null);
+  const [fotoPreview, setFotoPreview] = useState<string | null>(null);
   const [galeri, setGaleri] = useState<string[]>([]);
+
 
   const [fotoFile, setFotoFile] = useState<File | null>(null);
   const [galeriFiles, setGaleriFiles] = useState<File[]>([]);
 
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(isEdit);
+  const [toast, setToast] = useState<{
+  message: string;
+  type: "success" | "error";
+} | null>(null);
 
-  useEffect(() => {
-    if (!id) {
-      setLoadingData(false);
-      return;
-    }
+ useEffect(() => {
+  if (!id) {
+    setLoadingData(false);
+    return;
+  }
 
-    const loadPelaku = async () => {
-      try {
-        const data = await getPelakuKopi();
-
-        const item = data.find((pelaku) => pelaku.id === id);
-
-        if (!item) {
-          alert("Data pelaku tidak ditemukan.");
-          navigate("/admin/kopi");
-          return;
-        }
-
-        setNama(item.nama_pelaku);
-        setDeskripsiSingkat(item.deskripsi_singkat || "");
-        setDeskripsi(item.deskripsi || "");
-        setProduk(item.produk || "");
-        setWhatsapp(item.whatsapp || "");
-        setLokasiUrl(item.lokasi_url || "");
-
-        setFotoUrl(item.foto_url);
-        setGaleri(item.galeri || []);
-      } catch (error) {
-        console.error(error);
-        alert("Gagal mengambil data pelaku.");
-      } finally {
-        setLoadingData(false);
-      }
-    };
-
-    loadPelaku();
-  }, [id, navigate]);
-
-  const handleFotoChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = event.target.files?.[0];
-
-    if (!file) return;
-
-    setFotoFile(file);
-  };
-
-  const handleGaleriChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const files = Array.from(event.target.files || []);
-
-    setGaleriFiles(files);
-  };
-
-  const handleSubmit = async (
-    event: React.FormEvent
-  ) => {
-    event.preventDefault();
-
-    if (!nama.trim()) {
-      alert("Nama pelaku wajib diisi.");
-      return;
-    }
-
+  const loadPelaku = async () => {
     try {
-      setLoading(true);
+      const data = await getPelakuKopi();
 
-      let finalFotoUrl = fotoUrl;
+      const item = data.find(
+        (pelaku) => pelaku.id === id
+      );
 
-      // Upload foto utama jika ada foto baru
-      if (fotoFile) {
-        finalFotoUrl = await uploadFotoPelakuKopi(
-          fotoFile
-        );
+      if (!item) {
+        setToast({
+          message: "Data pelaku tidak ditemukan.",
+          type: "error",
+        });
+
+        setLoadingData(false);
+        return;
       }
 
-      // Upload foto galeri baru
-      let finalGaleri = [...galeri];
+      setNama(item.nama_pelaku);
+      setDeskripsiSingkat(
+        item.deskripsi_singkat || ""
+      );
+      setDeskripsi(item.deskripsi || "");
+      setProduk(item.produk || "");
+      setWhatsapp(item.whatsapp || "");
+      setLokasiUrl(item.lokasi_url || "");
 
-      if (galeriFiles.length > 0) {
-        const uploadedGaleri = await Promise.all(
-          galeriFiles.map((file) =>
-            uploadGaleriPelakuKopi(file)
-          )
-        );
-
-        finalGaleri = [
-          ...finalGaleri,
-          ...uploadedGaleri,
-        ];
-      }
-
-      const slug = generatePelakuKopiSlug(nama);
-
-      const data = {
-        nama_pelaku: nama,
-        foto_url: finalFotoUrl,
-        deskripsi_singkat: deskripsiSingkat,
-        deskripsi,
-        produk,
-        whatsapp,
-        lokasi_url: lokasiUrl,
-        slug,
-        galeri: finalGaleri,
-      };
-
-      if (isEdit && id) {
-        await updatePelakuKopi(id, data);
-
-        alert("Data pelaku berhasil diperbarui.");
-      } else {
-        await createPelakuKopi(data);
-
-        alert("Pelaku Kopi berhasil ditambahkan.");
-      }
-
-      navigate("/admin/kopi");
+      setFotoUrl(item.foto_url);
+      setFotoPreview(null);
+      setGaleri(item.galeri || []);
     } catch (error) {
       console.error(error);
-      alert("Gagal menyimpan data pelaku.");
+
+      setToast({
+        message: "Gagal mengambil data pelaku.",
+        type: "error",
+      });
     } finally {
-      setLoading(false);
+      setLoadingData(false);
     }
   };
+
+  loadPelaku();
+}, [id, navigate]);
+
+
+// Toast otomatis hilang
+useEffect(() => {
+  if (!toast) return;
+
+  const timer = setTimeout(() => {
+    setToast(null);
+  }, 3000);
+
+  return () => clearTimeout(timer);
+}, [toast]);
+
+  const handleFotoChange = (
+  event: React.ChangeEvent<HTMLInputElement>
+) => {
+  const file = event.target.files?.[0];
+
+  if (!file) return;
+
+  setFotoFile(file);
+  setFotoPreview(URL.createObjectURL(file));
+};
+
+  const handleGaleriChange = (
+  event: React.ChangeEvent<HTMLInputElement>
+) => {
+  const files = Array.from(event.target.files || []);
+
+  if (files.length === 0) return;
+
+  setGaleriFiles((prev) => [
+    ...prev,
+    ...files,
+  ]);
+
+  // Supaya bisa memilih file yang sama lagi
+  event.target.value = "";
+};
+
+const handleRemoveGaleriFile = (index: number) => {
+  setGaleriFiles((prev) =>
+    prev.filter((_, i) => i !== index)
+  );
+};
+
+const handleRemoveGaleri = (index: number) => {
+  const yakin = window.confirm(
+    "Yakin ingin menghapus foto galeri ini?"
+  );
+
+  if (!yakin) return;
+
+  setGaleri((prev) =>
+    prev.filter((_, i) => i !== index)
+  );
+};
+
+  const handleSubmit = async (
+  event: React.FormEvent
+) => {
+  event.preventDefault();
+
+  if (!nama.trim()) {
+    setToast({
+      message: "Nama pelaku wajib diisi.",
+      type: "error",
+    });
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    let finalFotoUrl = fotoUrl;
+
+    // Upload foto utama jika ada foto baru
+    if (fotoFile) {
+      finalFotoUrl = await uploadFotoPelakuKopi(
+        fotoFile
+      );
+    }
+
+    // Upload foto galeri baru
+    let finalGaleri = [...galeri];
+
+    if (galeriFiles.length > 0) {
+      const uploadedGaleri = await Promise.all(
+        galeriFiles.map((file) =>
+          uploadGaleriPelakuKopi(file)
+        )
+      );
+
+      finalGaleri = [
+        ...finalGaleri,
+        ...uploadedGaleri,
+      ];
+    }
+
+    const slug = generatePelakuKopiSlug(nama);
+
+    const data = {
+      nama_pelaku: nama,
+      foto_url: finalFotoUrl,
+      deskripsi_singkat: deskripsiSingkat,
+      deskripsi,
+      produk,
+      whatsapp,
+      lokasi_url: lokasiUrl,
+      slug,
+      galeri: finalGaleri,
+    };
+
+    if (isEdit && id) {
+      await updatePelakuKopi(id, data);
+
+      setToast({
+        message: "Data pelaku berhasil diperbarui.",
+        type: "success",
+      });
+    } else {
+      await createPelakuKopi(data);
+
+      setToast({
+        message: "Pelaku Kopi berhasil ditambahkan.",
+        type: "success",
+      });
+    }
+
+    setTimeout(() => {
+      navigate("/admin/kopi");
+    }, 1000);
+
+  } catch (error) {
+    console.error(error);
+
+    setToast({
+      message: "Gagal menyimpan data pelaku.",
+      type: "error",
+    });
+  } finally {
+    setLoading(false);
+  }
+};
 
   if (loadingData) {
     return (
@@ -170,7 +244,24 @@ export default function PelakuKopiFormPage() {
   }
 
   return (
-  <div className="space-y-8 px-6 pb-6 pt-0">
+  <>
+    {toast && (
+      <div
+        className={`fixed right-6 top-6 z-[9999] flex items-center gap-3 rounded-xl px-5 py-4 text-sm font-semibold text-white shadow-xl ${
+          toast.type === "success"
+            ? "bg-green-600"
+            : "bg-red-600"
+        }`}
+      >
+        <span className="text-lg">
+          {toast.type === "success" ? "✓" : "✕"}
+        </span>
+
+        <span>{toast.message}</span>
+      </div>
+    )}
+
+    <div className="space-y-8 px-6 pb-6 pt-0">
 
       {/* Header */}
       <div>
@@ -214,13 +305,13 @@ export default function PelakuKopiFormPage() {
                 Foto Pelaku
               </label>
 
-              {fotoUrl && (
-                <img
-                  src={fotoUrl}
-                  alt={nama || "Foto pelaku"}
-                  className="mb-4 h-48 w-64 rounded-xl object-cover"
-                />
-              )}
+              {(fotoPreview || fotoUrl) && (
+  <img
+    src={fotoPreview || fotoUrl || ""}
+    alt={nama || "Foto pelaku"}
+    className="mb-4 h-48 w-64 rounded-xl object-cover"
+  />
+)}
 
               <input
                 type="file"
@@ -366,63 +457,120 @@ export default function PelakuKopiFormPage() {
 
 
         {/* Galeri */}
-        <section className="rounded-2xl border bg-white p-6 shadow-sm">
+<section className="rounded-2xl border bg-white p-6 shadow-sm">
 
-          <h2 className="text-2xl font-bold text-gray-900">
-            Galeri
-          </h2>
+  <h2 className="text-2xl font-bold text-gray-900">
+    Galeri
+  </h2>
 
-          <p className="mt-2 text-sm text-gray-500">
-            Foto produk, proses pengolahan, pelaku,
-            dan aktivitas Kopi Beji dapat dimasukkan di sini.
-          </p>
-
-
-          {/* Galeri lama */}
-          {galeri.length > 0 && (
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
-
-              {galeri.map((foto, index) => (
-                <div
-                  key={`${foto}-${index}`}
-                  className="overflow-hidden rounded-xl border"
-                >
-                  <img
-                    src={foto}
-                    alt={`Galeri ${index + 1}`}
-                    className="h-40 w-full object-cover"
-                  />
-                </div>
-              ))}
-
-            </div>
-          )}
+  <p className="mt-2 text-sm text-gray-500">
+    Foto produk, proses pengolahan, pelaku,
+    dan aktivitas Kopi Beji dapat dimasukkan di sini.
+  </p>
 
 
-          {/* Upload */}
-          <div className="mt-6">
+  {/* GALERI LAMA */}
+  {galeri.length > 0 && (
+    <div className="mt-6">
 
-            <label className="mb-2 block font-semibold text-gray-800">
-              Tambah Foto Galeri
-            </label>
+      <p className="mb-4 text-sm font-medium text-gray-700">
+        Foto Galeri Tersimpan
+      </p>
 
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={handleGaleriChange}
-              className="block w-full rounded-xl border border-gray-300 p-3"
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+
+        {galeri.map((foto, index) => (
+          <div
+            key={`${foto}-${index}`}
+            className="relative overflow-hidden rounded-xl border bg-white"
+          >
+
+            <img
+              src={foto}
+              alt={`Galeri ${index + 1}`}
+              className="h-40 w-full object-cover"
             />
 
-            {galeriFiles.length > 0 && (
-              <p className="mt-2 text-sm text-gray-500">
-                {galeriFiles.length} foto dipilih.
-              </p>
-            )}
+            {/* X HAPUS */}
+            <button
+              type="button"
+              onClick={() => handleRemoveGaleri(index)}
+              className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-black/60 text-sm font-bold text-white transition hover:bg-red-600"
+            >
+              ✕
+            </button>
 
           </div>
+        ))}
 
-        </section>
+      </div>
+
+    </div>
+  )}
+
+
+  {/* FOTO BARU YANG DIPILIH */}
+  {galeriFiles.length > 0 && (
+    <div className="mt-6">
+
+      <p className="mb-4 text-sm font-medium text-gray-700">
+        Foto Baru ({galeriFiles.length})
+      </p>
+
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+
+        {galeriFiles.map((file, index) => (
+          <div
+            key={`${file.name}-${index}`}
+            className="relative overflow-hidden rounded-xl border bg-white"
+          >
+
+            <img
+              src={URL.createObjectURL(file)}
+              alt={`Foto baru ${index + 1}`}
+              className="h-40 w-full object-cover"
+            />
+
+            {/* X BATALKAN FOTO BARU */}
+            <button
+              type="button"
+              onClick={() => handleRemoveGaleriFile(index)}
+              className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-black/60 text-sm font-bold text-white transition hover:bg-red-600"
+            >
+              ✕
+            </button>
+
+          </div>
+        ))}
+
+      </div>
+
+    </div>
+  )}
+
+
+  {/* UPLOAD */}
+  <div className="mt-6">
+
+    <label className="mb-2 block font-semibold text-gray-800">
+      Tambah Foto Galeri
+    </label>
+
+    <input
+      type="file"
+      accept="image/*"
+      multiple
+      onChange={handleGaleriChange}
+      className="block w-full rounded-xl border border-gray-300 p-3"
+    />
+
+    <p className="mt-2 text-sm text-gray-500">
+      Bisa memilih beberapa foto sekaligus.
+    </p>
+
+  </div>
+
+</section>
 
 
         {/* Tombol */}
@@ -450,6 +598,7 @@ export default function PelakuKopiFormPage() {
         </div>
 
       </form>
-    </div>
-  );
+        </div>
+  </>
+);
 }
