@@ -64,6 +64,18 @@ export default function UmkmDetailPage() {
     );
   }
 
+  function formatWhatsAppNumber(phone: string) {
+  if (!phone) return "";
+
+  let number = phone.replace(/\D/g, "");
+
+  if (number.startsWith("0")) {
+    number = "62" + number.slice(1);
+  }
+
+  return number;
+}
+
   return (
     <>
       <Navbar />
@@ -150,7 +162,7 @@ export default function UmkmDetailPage() {
               {/* WHATSAPP */}
               {umkm.whatsapp && (
                 <a
-                  href={`https://wa.me/${umkm.whatsapp.replace(/\D/g, "")}`}
+                  href={`https://wa.me/${formatWhatsAppNumber(umkm.whatsapp)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-xl bg-green-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-green-700 md:px-5 md:py-3 md:text-base"

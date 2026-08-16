@@ -44,38 +44,44 @@ export default function KopiPage() {
       <main className="min-h-screen bg-[#F7F4ED]">
 
       {/* ================================================= */}
-      {/* HERO */}
-      {/* ================================================= */}
+{/* HERO */}
+{/* ================================================= */}
 
-      <section className="relative h-[320px] md:h-[420px]">
-        <img
-          src={
-            hero?.image_url ||
-            "https://placehold.co/1600x900"
-          }
-          alt={hero?.title || "Kopi Beji"}
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+<section className="relative h-[260px] md:h-[340px] lg:h-[380px]">
 
-        <div className="absolute inset-0 bg-black/50" />
+  <img
+    src={
+      hero?.image_url ||
+      "https://placehold.co/1600x900"
+    }
+    alt="Hero Kopi Beji"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
 
-        <div className="relative z-10 flex h-full items-center">
-          <div className="mx-auto w-full max-w-7xl px-5 text-white">
-            <span className="rounded-full bg-green-600 px-4 py-2 text-sm">
-              {hero?.subtitle || "Ikon Desa Beji"}
-            </span>
+  <div className="absolute inset-0 bg-black/50" />
 
-            <h1 className="mt-4 text-5xl font-bold">
-              {hero?.title || "Kopi Beji"}
-            </h1>
+  <div className="relative z-10 flex h-full items-center justify-center">
 
-            <p className="mt-4 max-w-2xl text-lg text-gray-200">
-              {hero?.description ||
-                "Mengenal Kopi Beji sebagai salah satu ikon dan potensi unggulan Desa Beji."}
-            </p>
-          </div>
-        </div>
-      </section>
+    <div className="px-5 text-center text-white translate-y-3 md:translate-y-0">
+
+      <span className="relative top-2 rounded-full bg-white/20 px-3 py-1 text-[10px] backdrop-blur md:top-3 md:px-4 md:text-sm">
+      Pesona Beji
+      </span>
+
+      <h1 className="mt-3 text-2xl font-bold leading-tight md:mt-4 md:text-5xl">
+        {hero?.title || "Kopi Beji"}
+      </h1>
+
+      <p className="mt-2 max-w-2xl text-[11px] leading-5 md:mt-3 md:text-lg">
+        {hero?.description ||
+          "Mengenal Kopi Beji sebagai salah satu ikon dan potensi unggulan Desa Beji."}
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
 
       {/* ================================================= */}
       {/* TENTANG KOPI */}

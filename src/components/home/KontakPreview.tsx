@@ -33,8 +33,16 @@ export default function KontakPreview() {
   }
 
   const whatsappNumber = kontak.whatsapp
-    ? kontak.whatsapp.replace(/\D/g, "")
-    : "";
+  ? (() => {
+      let number = kontak.whatsapp.replace(/\D/g, "");
+
+      if (number.startsWith("0")) {
+        number = "62" + number.slice(1);
+      }
+
+      return number;
+    })()
+  : "";
 
   return (
     <section className="bg-[#F7F4ED] px-5 py-12 md:py-16">

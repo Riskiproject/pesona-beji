@@ -81,6 +81,18 @@ export default function KopiPelakuDetailPage() {
     );
   }
 
+  function formatWhatsAppNumber(phone: string) {
+  if (!phone) return "";
+
+  let number = phone.replace(/\D/g, "");
+
+  if (number.startsWith("0")) {
+    number = "62" + number.slice(1);
+  }
+
+  return number;
+}
+
   return (
     <>
       <Navbar />
@@ -209,22 +221,21 @@ export default function KopiPelakuDetailPage() {
 
                 {/* WHATSAPP */}
                 {pelaku.whatsapp && (
-                  <a
-                    href={
-                      pelaku.whatsapp.startsWith("http")
-                        ? pelaku.whatsapp
-                        : `https://wa.me/${pelaku.whatsapp.replace(
-                            /\D/g,
-                            ""
-                          )}`
-                    }
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl bg-green-600 px-6 py-3 font-semibold text-white transition hover:bg-green-700"
+                 <a
+                  href={
+                  pelaku.whatsapp.startsWith("http")
+                  ? pelaku.whatsapp
+                  : `https://wa.me/${formatWhatsAppNumber(
+                  pelaku.whatsapp
+                  )}`
+                  }
+                  target="_blank"
+                 rel="noopener noreferrer"
+                 className="inline-flex items-center gap-2 rounded-xl bg-green-600 px-6 py-3 font-semibold text-white transition hover:bg-green-700"
                   >
-                    💬 WhatsApp
-                  </a>
-                )}
+                 💬 WhatsApp
+                 </a>
+                 )}
 
                 {/* LOKASI */}
                 {pelaku.lokasi_url && (

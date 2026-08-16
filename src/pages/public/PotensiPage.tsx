@@ -77,20 +77,22 @@ const banner = banners[current];
   <div className="absolute inset-0 bg-black/50" />
 
   <div className="relative z-10 flex h-full items-center justify-center">
-    <div className="text-center text-white px-5">
-      <span className="rounded-full bg-white/20 px-4 py-1 text-sm backdrop-blur">
-        Pesona Beji
-      </span>
+  <div className="px-5 text-center text-white translate-y-3 md:translate-y-0">
 
-      <h1 className="mt-4 text-3xl font-bold md:text-5xl">
-        {banner?.title}
-      </h1>
+    <span className="rounded-full bg-white/20 px-3 py-1 text-[10px] backdrop-blur md:px-4 md:text-sm">
+      Pesona Beji
+    </span>
 
-      <p className="mt-3 max-w-2xl text-sm md:text-lg">
-        {banner?.description}
-      </p>
-    </div>
+    <h1 className="mt-3 text-2xl font-bold leading-tight md:mt-4 md:text-5xl">
+      {banner?.title}
+    </h1>
+
+    <p className="mt-2 max-w-2xl text-[11px] leading-5 md:mt-3 md:text-lg">
+      {banner?.description}
+    </p>
+
   </div>
+</div>
 </section>
 
       {/* Potensi */}

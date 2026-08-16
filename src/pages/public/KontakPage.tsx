@@ -44,6 +44,18 @@ export default function KontakPage() {
     }
   }
 
+  function formatWhatsAppNumber(phone: string) {
+  if (!phone) return "";
+
+  let number = phone.replace(/\D/g, "");
+
+  if (number.startsWith("0")) {
+    number = "62" + number.slice(1);
+  }
+
+  return number;
+}
+
   return (
     <>
       <Navbar />
@@ -142,18 +154,15 @@ export default function KontakPage() {
                   </h2>
 
                   {kontak.whatsapp ? (
-                    <a
-                      href={`https://wa.me/${kontak.whatsapp.replace(
-                        /\D/g,
-                        ""
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 inline-block text-gray-600 transition hover:text-green-600"
-                    >
-                      {kontak.whatsapp}
-                    </a>
-                  ) : (
+                   <a
+                   href={`https://wa.me/${formatWhatsAppNumber(kontak.whatsapp)}`}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="mt-3 inline-block text-gray-600 transition hover:text-green-600"
+                   >
+                   {kontak.whatsapp}
+                   </a>
+                   ) : (
                     <p className="mt-3 text-gray-600">
                       -
                     </p>

@@ -110,9 +110,9 @@ if (!headline) {
           📰 Berita Desa Beji
         </span>
 
-        <h1 className="mt-6 text-5xl font-bold text-gray-900">
-          Berita Desa Beji
-        </h1>
+      <h1 className="mt-4 text-[30px] font-bold leading-tight text-gray-900 md:mt-6 md:text-5xl">
+       Berita Desa Beji
+      </h1>
 
         <p className="mt-5 max-w-3xl text-lg leading-8 text-gray-600">
           Informasi terbaru mengenai kegiatan, program,
@@ -149,7 +149,7 @@ if (!headline) {
         📂 {headline.kategori}
       </p>
 
-      <p className="mt-3 line-clamp-2 text-xs leading-5 text-gray-600 md:mt-6 md:text-base md:leading-8">
+      <p className="mt-3 max-w-3xl text-sm leading-6 text-gray-600 md:mt-5 md:text-lg md:leading-8">
         {headline.ringkasan}
       </p>
 

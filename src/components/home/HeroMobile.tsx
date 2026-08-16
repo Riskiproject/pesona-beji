@@ -46,18 +46,18 @@ export default function HeroMobile({
       />
 
      {/* CONTENT */}
-<div className="absolute left-0 top-[68px] z-10 w-full px-[18px]">
+<div className="absolute left-0 top-[82px] z-10 w-full px-[18px]">
   <div className="max-w-[340px]">
 
     <div className="mb-[6px] inline-block rounded-full bg-[#8BC34A] px-[12px] py-[4px] text-[9px] font-semibold text-white">
       Selamat Datang di
     </div>
 
-    <h1 className="m-0 max-w-[330px] break-words text-[27px] font-extrabold leading-[1] text-[#214E28]">
+    <h1 className="m-0 max-w-[330px] break-words text-[24px] font-extrabold leading-[1.05] text-[#214E28]">
       {banner.title}
     </h1>
 
-    <h2 className="mt-[6px] max-w-[320px] whitespace-pre-line text-[13px] font-bold leading-[1.15] text-[#3D3D3D]">
+    <h2 className="mt-[6px] max-w-[320px] whitespace-pre-line text-[12px] font-bold leading-[1.2] text-[#3D3D3D]">
       {banner.subtitle}
     </h2>
 
