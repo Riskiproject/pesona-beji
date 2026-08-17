@@ -54,8 +54,8 @@ export default function KontakPreview() {
             Kontak
           </span>
 
-          <h2 className="mt-2 text-3xl font-bold text-gray-900 md:text-4xl">
-            Hubungi Desa Beji
+          <h2 className="mt-2 text-2xl font-bold leading-tight text-gray-900 md:text-4xl">
+          Hubungi Desa Beji
           </h2>
 
           <p className="mx-auto mt-3 max-w-2xl text-sm text-gray-600 md:text-base">
@@ -72,8 +72,8 @@ export default function KontakPreview() {
               Instansi
             </p>
 
-            <h3 className="mt-1 text-2xl font-bold text-gray-900 md:mt-2 md:text-3xl">
-              {kontak.nama_instansi}
+            <h3 className="mt-1 text-xl font-bold leading-tight text-gray-900 md:mt-2 md:text-3xl">
+            {kontak.nama_instansi}
             </h3>
           </div>
 

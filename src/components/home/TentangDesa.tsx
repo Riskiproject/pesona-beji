@@ -36,8 +36,8 @@ export default function TentangDesa() {
             {tentang.badge}
           </span>
 
-          <h2 className="mt-3 text-3xl font-extrabold text-gray-900 md:mt-5 md:text-4xl">
-            {tentang.title}
+          <h2 className="mt-3 text-2xl font-extrabold leading-tight text-gray-900 md:mt-5 md:text-4xl">
+          {tentang.title}
           </h2>
 
           <p className="mx-auto mt-3 max-w-3xl text-sm leading-6 text-gray-600 md:mt-5 md:text-lg md:leading-8">

@@ -32,8 +32,8 @@ export default function KopiPreview() {
 
         {/* HEADER */}
         <div className="mb-8 text-center md:mb-10">
-          <h2 className="text-3xl font-bold text-gray-900">
-            Pelaku Kopi Desa Beji
+          <h2 className="text-2xl font-bold leading-tight text-gray-900 md:text-4xl">
+          Pelaku Kopi Desa Beji
           </h2>
 
           <p className="mt-3 text-sm text-gray-600 md:text-base">

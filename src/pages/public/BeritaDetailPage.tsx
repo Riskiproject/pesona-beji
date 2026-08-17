@@ -15,6 +15,7 @@ export default function BeritaDetailPage() {
   const [item, setItem] = useState<any>(null);
   const [beritaLainnya, setBeritaLainnya] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -48,9 +49,14 @@ export default function BeritaDetailPage() {
   };
 
   const copyLink = async () => {
-    await navigator.clipboard.writeText(window.location.href);
-    alert("Link berhasil disalin");
-  };
+  await navigator.clipboard.writeText(window.location.href);
+
+  setCopied(true);
+
+  setTimeout(() => {
+    setCopied(false);
+  }, 2500);
+};
 
   if (loading) {
     return (
@@ -72,6 +78,7 @@ export default function BeritaDetailPage() {
         <Navbar />
 
         <main className="min-h-screen bg-[#F7F4ED]">
+
           <section className="mx-auto max-w-4xl px-5 py-32 text-center">
             <h1 className="text-3xl font-bold md:text-4xl">
               Berita Tidak Ditemukan
@@ -90,7 +97,27 @@ export default function BeritaDetailPage() {
 
       <main className="min-h-screen bg-[#F7F4ED]">
 
-        <section className="mx-auto max-w-5xl px-4 pb-16 pt-20 sm:px-5 md:pt-28">
+  {copied && (
+    <div className="fixed right-4 top-20 z-50 flex items-center gap-3 rounded-xl border border-green-200 bg-white px-4 py-3 shadow-lg md:right-6 md:top-24">
+      
+      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 text-green-600">
+        ✓
+      </span>
+
+      <div>
+        <p className="text-sm font-semibold text-gray-900">
+          Link berhasil disalin
+        </p>
+
+        <p className="text-xs text-gray-500">
+          Link berita telah disalin ke clipboard.
+        </p>
+      </div>
+
+    </div>
+  )}
+
+  <section className="mx-auto max-w-5xl px-4 pb-16 pt-20 sm:px-5 md:pt-28">
 
           {/* KEMBALI */}
           <Link

@@ -38,8 +38,8 @@ export default function GaleriPreview() {
             Galeri Desa
           </span>
 
-          <h2 className="mt-2 text-3xl font-bold text-gray-900 md:text-4xl">
-            Dokumentasi Desa Beji
+          <h2 className="mt-2 text-2xl font-bold leading-tight text-gray-900 md:text-4xl">
+          Dokumentasi Desa Beji
           </h2>
 
           <p className="mt-3 text-gray-600">
